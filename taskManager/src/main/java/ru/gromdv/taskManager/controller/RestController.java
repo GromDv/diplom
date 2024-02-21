@@ -22,7 +22,7 @@ public class RestController {
     public ResponseEntity<List<TaskDto>> getTasksList() {
         List<TaskDto> tasks = servise.getTasksList()
                 .stream().map(dtoMapper::toDto).toList();
-        log.log(Level.INFO, String.format("TYPE_REPO: %s", tasks));
+        log.log(Level.INFO, String.format("Tasks LIST: %s", tasks));
 
         return ResponseEntity.ok().body(tasks);
     }

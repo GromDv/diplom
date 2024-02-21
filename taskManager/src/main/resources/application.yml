@@ -1,8 +1,8 @@
 spring:
   application:
     name: taskmanager-ms
-    profiles:
-      active: dev
+#    profiles:
+#      active: dev
   config:
     enabled: true
     import: configserver:http://localhost:8888
