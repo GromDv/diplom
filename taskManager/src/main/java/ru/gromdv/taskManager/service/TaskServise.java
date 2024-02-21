@@ -5,9 +5,6 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import ru.gromdv.taskManager.model.Task;
 import ru.gromdv.taskManager.repository.TaskRepository;
-
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
