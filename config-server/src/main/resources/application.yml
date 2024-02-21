@@ -1,0 +1,48 @@
+server:
+  port: 8888
+spring:
+  output.ansi.enabled: ALWAYS
+  application:
+    name: config-service-ms
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:GromDv/diplom_configs.git
+#          username: GromDv
+#          password: 125212Romic
+          default-label: main
+          search-paths: "{application}"
+#        composite:
+#          - type: native
+#        bootstrap: true
+#  profiles:
+#    include: native
+
+
+
+#server:
+#  port: 8888
+#
+#spring:
+#  output.ansi.enabled: ALWAYS
+#  application:
+#    name: config-service-ms
+#  profiles:
+#    include: native
+#  cloud:
+#    config:
+#      server:
+#        bootstrap: true
+#
+#
+#      native:
+#        searchLocations:
+#          classpath:
+#
+#        git:
+#          uri: git@github.com:GromDv/spring-boot-configs.git
+#          username: username
+#          password: password
+#          default-label: main
+#          search-paths: "{application}"

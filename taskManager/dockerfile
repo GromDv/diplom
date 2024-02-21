@@ -1,0 +1,13 @@
+# Используем базовый образ с поддержкой Java
+FROM openjdk:17-slim
+
+# Копируем JAR-файл приложения в контейнер
+COPY out/artifacts/taskManager_jar/taskManager.jar /app/taskManager.jar
+
+# Параметры для базы данных (пример)
+ENV DB_URL=jdbc:postgresql://db:5432/tasksBase
+ENV DB_USERNAME=postgres
+ENV DB_PASSWORD=postgres
+
+# Команда для запуска приложения при старте контейнера
+CMD ["java", "-jar", "/app/taskManager.jar"]
