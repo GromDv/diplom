@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: message-service-ms
+#    profiles:
+#      active: dev
+  config:
+    enabled: true
+    import: configserver:http://localhost:8888
+
+#server:
+#  port: 8087
+#  datasource:
+#    url: jdbc:postgresql://localhost:5435/tasksBase
+#    username: postgres
+#    password: postgres
+#    driver-class-name: org.postgresql.Driver
+#  sql:
+#    init:
+#      mode: always
+#  jpa:
+#    database: POSTGRESQL
+#    hibernate:
+#      dialect: org.hibernate.dialect.PostgresSQLDialect
+#      default-schema: tasks_schema
+#      ddl-auto: update
+#  show-sql: true
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: metrics,prometheus
+#  endpoint:
+#    health:
+#      show-details: always
