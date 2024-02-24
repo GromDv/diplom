@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.gromdv</groupId>
-	<artifactId>taskManager</artifactId>
+	<artifactId>message-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>taskManager</name>
+	<name>message-service-ms</name>
 	<description>Task manadger for freelancers</description>
 	<properties>
 		<java.version>17</java.version>

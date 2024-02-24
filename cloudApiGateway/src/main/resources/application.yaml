@@ -1,0 +1,22 @@
+server:
+  port: 8765
+
+spring:
+  output.ansi.enabled: ALWAYS
+  application:
+    name: api-gateway
+#  config:
+#    enabled: false
+#    import: configserver:http://localhost:8888
+  cloud:
+    gateway:
+      routes:
+        - id: taskmanager-ms
+          uri: http://localhost:8087/
+          predicates:
+            - Path=/tasks/**
+        - id: message-service-ms
+          uri: http://localhost:8088/
+          predicates:
+            - Path=/messages/**
+
