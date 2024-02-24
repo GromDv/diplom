@@ -1,7 +1,6 @@
 spring:
   application:
-    name: taskmanager-ms
+    name: api-gateway
   config:
     enabled: true
     import: configserver:http://localhost:8888
-

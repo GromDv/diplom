@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gromdv.messageService.dto.DtoMapper;
 import ru.gromdv.messageService.dto.MessageDto;
 import ru.gromdv.messageService.service.MessageService;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 @org.springframework.web.bind.annotation.RestController
 @AllArgsConstructor
 @Log
+@RequestMapping("/messages")
 public class RestController {
 
     private final MessageService servise;
