@@ -4,7 +4,6 @@ spring:
   output.ansi.enabled: ALWAYS
   application:
     name: eserver
-
 eureka:
   client:
     register-with-eureka: false
