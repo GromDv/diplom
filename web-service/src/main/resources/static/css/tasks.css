@@ -1,3 +1,6 @@
+body {
+/*    background-color: black;  */
+}
 .main-list {
     margin-bottom: 20px;
 }
@@ -27,24 +30,41 @@
     background-color: green;
     color: white;
 }
+.all-task {
+    background-color: magenta;
+    color: white;
+}
 .big-folder {
     display: flex;
+    flex-direction: row;
+}
+.color-folders {
+    width: 25px;
 }
 .list-folder {
     width: 100%;
+    padding: 10px 0;
     border: 1px solid lightgray;
+    box-shadow: 0 0 50px lightgray;
+    max-height: 660px;
+    overflow-y: auto;
+}
+.tasks-progress {
+    box-shadow: 5px 5px 8px #d4d793;
+}
+.tasks-new {
     box-shadow: 5px 5px 8px #d4d793;
 }
 .folder {
     display: flex;
     flex-wrap: wrap;
-    margin: 25px 5px;
+    margin: 0 5px 30px 5px;
     border: 1px solid lightgrey;
     box-shadow: 5px 5px 8px #e4e4e4;
-    border-collapse: collapse;
 }
 .folder p {
     margin: 0;
+    color: green;
 }
 .inf {
     display: flex;
@@ -52,14 +72,14 @@
     width: 100%;
 }
 .title {
-    position: relative;
-    left: -10px;
-    top: -20px;
-    background-color: #00ffa9;
+    background-color: #dfdfdf;
+    color: #2d2d2d;
     padding: 0 30px;
+    margin-left: 5px;
     line-height: 20px;
     height: 20px;
     -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
+    width: max-content;
 }
 .add-button {
     width: 100px;

@@ -3,15 +3,15 @@ package ru.gromdv.taskManager.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.gromdv.taskManager.dto.DtoMapper;
 import ru.gromdv.taskManager.dto.TaskDto;
 import ru.gromdv.taskManager.model.Task;
+import ru.gromdv.taskManager.model.TaskStatus;
 import ru.gromdv.taskManager.service.TaskService;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -32,8 +32,28 @@ public class RestController {
         return ResponseEntity.ok().body(tasks);
     }
 
+    @GetMapping("/list/status/{st}")
+    public ResponseEntity<List<TaskDto>> getTasksList(@PathVariable String st) {
+        TaskStatus status = switch (st) {
+            case "new" -> TaskStatus.NEW_TASK;
+            case "progress" -> TaskStatus.IN_PROGRESS;
+            case "completed" -> TaskStatus.COMPLETED;
+            case "paused" -> TaskStatus.PAUSED;
+            case "urgent" -> TaskStatus.URGENT;
+            default -> TaskStatus.CANCELED;
+        };
+        List<TaskDto> tasks = servise.getTasksList()
+                .stream()
+                .filter(x -> x.getStatus().equals(status))
+                .map(dtoMapper::toDto)
+                .toList();
+        return ResponseEntity.ok().body(tasks);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<?> addNewTask(@RequestBody Task t) {
+        t.setStatus(TaskStatus.NEW_TASK);
+        t.setDateCreate(LocalDateTime.now());
         servise.addNewTask(t);
         return ResponseEntity.ok().body(t);
     }

@@ -2,43 +2,27 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Добавление абонента</title>
+    <title>Добавление задачи</title>
 </head>
 <body>
-<h2>Добавление абонента</h2>
-<form action="#" th:action="@{/abonent-create}" th:object="${abonent}" method="post">
+<h2>Добавление задачи</h2>
+<form action="#" data-th-action="${urlWeb}" data-th-object="${task}" method="post">
     <table>
         <tbody>
         <tr>
             <td>
-                <label for="firstName">Имя</label>
+                <label for="name">Название</label>
             </td>
             <td>
-                <input type="text" th:field="*{firstName}" id="firstName" placeholder="имя">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="lastName">Фамилия</label>
-            </td>
-            <td>
-                <input type="text" th:field="*{lastName}" id="lastName" placeholder="фамилия">
+                <input type="text" size="100" data-th-field="*{name}" id="name" placeholder="назовите задачу (кратко по сути)">
             </td>
         </tr>
         <tr>
             <td>
-                <label for="phone">Номер</label>
+                <label for="description">Описание</label>
             </td>
             <td>
-                <input type="text" th:field="*{phone}" id="phone" placeholder="номер">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="address">Адрес</label>
-            </td>
-            <td>
-                <input type="text" th:field="*{address}" id="address" placeholder="адрес">
+                <textarea rows="5" cols="100" data-th-field="*{description}" id="description" placeholder="опишите задачу подробно"></textarea>
             </td>
         </tr>
         </tbody>

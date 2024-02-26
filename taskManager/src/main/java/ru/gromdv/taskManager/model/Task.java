@@ -1,6 +1,8 @@
 package ru.gromdv.taskManager.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,9 +22,9 @@ public class Task {
     private TaskStatus status;
 
     @Column(name = "date_create")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private LocalDateTime dateCreate;
 
     @Column(name = "date_complete")
     private LocalDateTime dateComplete;
+
 }
