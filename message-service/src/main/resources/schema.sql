@@ -1,4 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS tasks_schema;
+DROP TABLE IF EXISTS messages;
 CREATE TABLE IF NOT EXISTS messages (
     id SERIAL PRIMARY KEY,
     task_id INT not null,
@@ -6,5 +7,5 @@ CREATE TABLE IF NOT EXISTS messages (
     title VARCHAR(100) not null,
     text VARCHAR(255),
     status VARCHAR(50),
-    date_create TIMESTAMP
+    date_create TIMESTAMP default current_timestamp
 );

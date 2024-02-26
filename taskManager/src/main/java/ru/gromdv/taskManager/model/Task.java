@@ -20,6 +20,7 @@ public class Task {
     private TaskStatus status;
 
     @Column(name = "date_create")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private LocalDateTime dateCreate;
 
     @Column(name = "date_complete")

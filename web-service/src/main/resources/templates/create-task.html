@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление абонента</title>
+</head>
+<body>
+<h2>Добавление абонента</h2>
+<form action="#" th:action="@{/abonent-create}" th:object="${abonent}" method="post">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                <label for="firstName">Имя</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{firstName}" id="firstName" placeholder="имя">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="lastName">Фамилия</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{lastName}" id="lastName" placeholder="фамилия">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="phone">Номер</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{phone}" id="phone" placeholder="номер">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="address">Адрес</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{address}" id="address" placeholder="адрес">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

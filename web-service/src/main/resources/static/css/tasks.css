@@ -1,0 +1,75 @@
+.main-list {
+    margin-bottom: 20px;
+}
+.status-folder {
+    writing-mode: vertical-lr;
+    /*text-orientation: upright;*/
+    padding: 20px 0;
+    height: fit-content;
+    border: none;
+    -webkit-clip-path: polygon(0% 10%, 100% 0, 100% 100%, 0% 90%);
+}
+.urgent-task {
+    background-color: #ff6c00;
+}
+.new-task {
+    background-color: #f9e914;
+}
+.progress-task {
+    background-color: #001dfb;
+    color: white;
+}
+.problem-task {
+    background-color: red;
+    color: white;
+}
+.completed-task {
+    background-color: green;
+    color: white;
+}
+.big-folder {
+    display: flex;
+}
+.list-folder {
+    width: 100%;
+    border: 1px solid lightgray;
+    box-shadow: 5px 5px 8px #d4d793;
+}
+.folder {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 25px 5px;
+    border: 1px solid lightgrey;
+    box-shadow: 5px 5px 8px #e4e4e4;
+    border-collapse: collapse;
+}
+.folder p {
+    margin: 0;
+}
+.inf {
+    display: flex;
+    margin: 0px 10px;
+    width: 100%;
+}
+.title {
+    position: relative;
+    left: -10px;
+    top: -20px;
+    background-color: #00ffa9;
+    padding: 0 30px;
+    line-height: 20px;
+    height: 20px;
+    -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
+}
+.add-button {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    color: white;
+    font-size: xxx-large;
+    padding-bottom: 5px;
+    background-color: green;
+    -webkit-clip-path: circle(35px);
+}
