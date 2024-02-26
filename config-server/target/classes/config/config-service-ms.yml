@@ -1,0 +1,13 @@
+server:
+  port: 8888
+
+spring:
+  output.ansi.enabled: ALWAYS
+  application:
+    name: config-service-ms
+  profiles:
+    include: native
+  cloud:
+    config:
+      server:
+        bootstrap: true

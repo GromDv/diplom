@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  output.ansi.enabled: ALWAYS
+  application:
+    name: config-service-ms
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:GromDv/diplom_configs.git
+          default-label: main
+          search-paths: "{application}"

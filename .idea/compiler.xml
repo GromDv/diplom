@@ -12,6 +12,7 @@
         <module name="taskManager" />
         <module name="eureka-server" />
         <module name="message-service" />
+        <module name="web-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,6 +27,7 @@
       <module name="message-service" options="-parameters" />
       <module name="spring-ms-task-manager" options="-parameters" />
       <module name="taskManager" options="-parameters" />
+      <module name="web-service" options="-parameters" />
     </option>
   </component>
 </project>

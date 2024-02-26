@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/message-service/pom.xml" />
         <option value="$PROJECT_DIR$/spring-ms-task-manager/pom.xml" />
         <option value="$PROJECT_DIR$/cloudApiGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/web-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
