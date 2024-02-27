@@ -1,5 +1,9 @@
-body {
-/*    background-color: black;  */
+.bk-color {
+    background-color: #a1d8f3;
+    padding: 0 5px 10px 5px;
+}
+.h1-title {
+    text-align: center;
 }
 .main-list {
     margin-bottom: 20px;
@@ -22,7 +26,7 @@ body {
     background-color: #001dfb;
     color: white;
 }
-.problem-task {
+.paused-task {
     background-color: red;
     color: white;
 }
@@ -45,8 +49,8 @@ body {
     width: 100%;
     padding: 10px 0;
     border: 1px solid lightgray;
+    background-color: cornsilk;
     box-shadow: 0 0 50px lightgray;
-    max-height: 660px;
     overflow-y: auto;
 }
 .tasks-progress {
@@ -92,4 +96,9 @@ body {
     padding-bottom: 5px;
     background-color: green;
     -webkit-clip-path: circle(35px);
+}
+@media (max-height: 719px) {
+    .list-folder {
+        max-height: 675px;
+    }
 }

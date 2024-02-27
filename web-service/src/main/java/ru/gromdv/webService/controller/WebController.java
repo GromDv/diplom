@@ -33,6 +33,7 @@ public class WebController {
         List<Task> tasks = tasksApi.getAllTasks();
         model.addAttribute("bcolor", "magenta");
         model.addAttribute("list", tasks);
+        model.addAttribute("status", "all");
         model.addAttribute("urlweb", urlWeb);
         model.addAttribute("urlApiTasks", urlApiTasks);
         log.log(Level.INFO, String.format("urlweb: %s", urlWeb));
@@ -54,6 +55,7 @@ public class WebController {
         String urlWeb = "http://localhost:8086";
         List<Task> tasks = tasksApi.getTasksByStatus(status);
         model.addAttribute("bcolor", bcolor);
+        model.addAttribute("status", status);
         model.addAttribute("list", tasks);
         model.addAttribute("urlweb", urlWeb);
         model.addAttribute("urlApiTasks", urlApiTasks);

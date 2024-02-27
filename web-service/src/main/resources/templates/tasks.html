@@ -8,17 +8,19 @@
     <link rel="stylesheet" type="text/css" media="all" data-th-href="@{{url}/css/tasks.css(url=${urlweb})}" />
     <title>Текущие задачи вэб-разработчика</title>
     <style data-th-inline="css">
-        .tasks-border {
-          box-shadow: 0 0 50px [[${bcolor}]];
+        .[[${status}]]-task {
+            background-color: cornsilk;
+            color: black;
+            width: 27px;
         }
     </style>
 </head>
 <body>
 
-<div data-th-switch="${list}" class="container">
+<div data-th-switch="${list}" class="container bk-color">
     <h2 data-th-case="null">No records found!</h2>
     <div data-th-case="*" class="col-ms-12 main-list">
-        <h2 style="text-align:center;">Текущие задачи вэб-разработчика</h2>
+        <h1 class="h1-title">ТЕКУЩИЕ ЗАДАЧИ</h1>
         <div class="big-folder">
             <div class="color-folders">
                 <form method="get" data-th-action="@{{url}/tm/tasks/urgent(url=${urlWeb})}">
@@ -31,7 +33,7 @@
                     <input type="submit" class="status-folder progress-task" value="в работе">
                 </form>
                 <form method="get" data-th-action="@{{url}/tm/tasks/paused(url=${urlWeb})}">
-                    <input type="submit" class="status-folder problem-task" value="проблемные">
+                    <input type="submit" class="status-folder paused-task" value="проблемные">
                 </form>
                 <form method="get" data-th-action="@{{url}/tm/tasks/completed(url=${urlWeb})}">
                     <input type="submit" class="status-folder completed-task" value="готовы">
