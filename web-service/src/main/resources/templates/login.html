@@ -8,14 +8,13 @@
     <title>Авторизация</title>
     <style>
         .bk-color {
-            background-color: #a1d8f3;
+            background-color: #bcf3a1;
             padding: 0 5px 10px 5px;
         }
         .side {
-            min-height: 30vh;
+            min-height: 100vh;
         }
         .cent {
-            min-height: 40vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -26,13 +25,21 @@
             text-align: center;
             margin: 15px auto;
         }
+        @media (max-width: 991px) {
+            .side {
+                min-height: 30vh;
+            }
+            .cent {
+                min-height: 40vh;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container bk-color">
-    <div class="row col-sm-12">
-        <div class="col-sm-12 col-md-4 side">&nbsp;</div>
-        <div class="col-sm-12 col-md-4 cent">
+<div class="container">
+    <div class="row bk-color">
+        <div class="col-sm-12 col-lg-4 side">&nbsp;</div>
+        <div class="col-sm-12 col-lg-4 cent">
             <form data-th-action="@{/login}" method="post" style="text-align: right;">
                 <div><label for="uname"> логин : <input id="uname" type="text" name="username" size="16"/> </label></div>
                 <div><label for="pwd"> пароль: <input id="pwd" type="password" name="password" size="16"/> </label></div>
@@ -45,7 +52,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-sm-12 col-md-4 side">&nbsp;</div>
+        <div class="col-sm-12 col-lg-4 side">&nbsp;</div>
     </div>
 </div>
 </body>

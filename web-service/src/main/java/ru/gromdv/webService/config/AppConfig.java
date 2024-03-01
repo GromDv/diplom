@@ -8,8 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "api")
 public class AppConfig {
-
+    private String host;
+    private String serverPort;
+    private String gatewayPort;
     private String urlApiTasks;
-
     private String urlApiMessages;
 }

@@ -19,30 +19,30 @@ import java.util.logging.Level;
 @Log
 @Controller
 @AllArgsConstructor
-@RequestMapping("/tm")
 public class WebController {
     @Autowired
     private final AppConfig appConfig;
     @Autowired
     private final TasksApiImpl tasksApi;
 
-    @GetMapping
+    @GetMapping("/")
     public String getTasksList(Model model) {
-        String urlApiTasks = "http://localhost:8087";
-        String urlWeb = "http://localhost:8086";
         List<Task> tasks = tasksApi.getAllTasks();
+
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
+        log.log(Level.INFO, String.format("urlWebService: %s", urlWeb));
         model.addAttribute("bcolor", "magenta");
         model.addAttribute("list", tasks);
         model.addAttribute("status", "all");
         model.addAttribute("urlweb", urlWeb);
-        model.addAttribute("urlApiTasks", urlApiTasks);
         log.log(Level.INFO, String.format("urlweb: %s", urlWeb));
-        log.log(Level.INFO, String.format("urlApiTasks: %s", urlApiTasks));
 
         return "tasks.html";
     }
     @GetMapping("/tasks/{status}")
     public String getTasksByStatus(Model model, @PathVariable String status) {
+        List<Task> tasks = tasksApi.getTasksByStatus(status);
+
         String bcolor = switch (status) {
             case "new" -> "yellow";
             case "progress" -> "blue";
@@ -51,24 +51,20 @@ public class WebController {
             case "urgent" -> "orange";
             default -> "magenta";
         };
-        String urlApiTasks = "http://localhost:8087";
-        String urlWeb = "http://localhost:8086";
-        List<Task> tasks = tasksApi.getTasksByStatus(status);
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
         model.addAttribute("bcolor", bcolor);
         model.addAttribute("status", status);
         model.addAttribute("list", tasks);
         model.addAttribute("urlweb", urlWeb);
-        model.addAttribute("urlApiTasks", urlApiTasks);
         log.log(Level.INFO, String.format("urlweb: %s", urlWeb));
-        log.log(Level.INFO, String.format("urlApiTasks: %s", urlApiTasks));
 
         return "tasks.html";
     }
 
     @GetMapping("/add")
     public String addNewTask(Model model) {
-        String urlApiTasks = "http://localhost:8087";
-        String urlWeb = "http://localhost:8086/tm/create";
+        String urlApiTasks = appConfig.getHost()+appConfig.getGatewayPort();
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort() + "/create";
         Task task = new Task();
         model.addAttribute("task", task);
         model.addAttribute("urlWeb", urlWeb);
@@ -79,6 +75,15 @@ public class WebController {
     @PostMapping("/create")
     public String createTask(Task task) {
         tasksApi.createTask(task);
-        return "redirect:/tm";
+        return "redirect:/";
     }
+    @GetMapping("/task/{id}")
+    public String getTaskById(Model model, @PathVariable Long id) {
+        Task task = tasksApi.getTaskById(id);
+        model.addAttribute("task", task);
+        model.addAttribute("created", task.getGoodDateCreate());
+        model.addAttribute("status", tasksApi.getStatusName(task.getStatus()));
+        return "task-view.html";
+    }
+
 }

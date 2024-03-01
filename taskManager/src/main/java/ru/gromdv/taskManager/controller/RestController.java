@@ -57,4 +57,13 @@ public class RestController {
         servise.addNewTask(t);
         return ResponseEntity.ok().body(t);
     }
+    @GetMapping("/task/{id}")
+    public ResponseEntity<Task> getTasksList(@PathVariable Long id) {
+        Task task = servise.getTaskById(id);
+        log.log(Level.INFO, String.format("Task: %s", task));
+        if(task != null)
+            return ResponseEntity.ok().body(task);
+        else
+            return ResponseEntity.notFound().build();
+    }
 }

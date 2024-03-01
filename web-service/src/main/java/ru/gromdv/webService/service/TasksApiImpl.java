@@ -27,10 +27,8 @@ public class TasksApiImpl {
     public List<Task> getAllTasks() {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        String url = appConfig.getUrlApiTasks() + "/api/list";
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/list";
         ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, List.class);
-
-        //    ResponseEntity<ListDto> response = template.getForEntity(url, ListDto.class );
 
         return (List<Task>) response.getBody();
     }
@@ -38,15 +36,35 @@ public class TasksApiImpl {
     public void createTask(Task task) {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        String url = appConfig.getUrlApiTasks() + "/api/add";
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/add";
         ResponseEntity<?> response = template.postForEntity(url, task, Task.class);
     }
 
     public List<Task> getTasksByStatus(String st) {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        String url = appConfig.getUrlApiTasks() + "/api/list/status/" + st;
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/list/status/" + st;
         ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, List.class);
         return (List<Task>) response.getBody();
+    }
+
+    public String getStatusName(TaskStatus status) {
+        return switch (status) {
+            case NEW_TASK -> "Новое";
+            case IN_PROGRESS -> "В работе";
+            case COMPLETED -> "Выполнено";
+            case PAUSED -> "Остановлено";
+            case URGENT -> "Срочное";
+            case CANCELED -> "Отменено";
+            default -> "не определен";
+        };
+    }
+
+    public Task getTaskById(Long id) {
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/task/" + id;
+        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, Task.class);
+        return (Task) response.getBody();
     }
 }

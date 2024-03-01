@@ -24,4 +24,8 @@ public class TaskService {
     public void addNewTask(Task t) {
         repository.save(t);
     }
+
+    public Task getTaskById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 }

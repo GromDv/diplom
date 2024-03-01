@@ -1,5 +1,5 @@
 .bk-color {
-    background-color: #a1d8f3;
+    background-color: #bcf3a1;
     padding: 0 5px 10px 5px;
 }
 .h1-title {
@@ -38,6 +38,7 @@
     background-color: magenta;
     color: white;
 }
+
 .big-folder {
     display: flex;
     flex-direction: row;
@@ -62,7 +63,9 @@
 .folder {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     margin: 0 5px 30px 5px;
+    padding: 5px;
     border: 1px solid lightgrey;
     box-shadow: 5px 5px 8px #e4e4e4;
 }
@@ -72,8 +75,9 @@
 }
 .inf {
     display: flex;
-    margin: 0px 10px;
+    margin: -2px 5px 0 10px;
     width: 100%;
+    background-color: white;
 }
 .title {
     background-color: #dfdfdf;
@@ -84,6 +88,18 @@
     height: 20px;
     -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
     width: max-content;
+}
+.task-menu {
+/*    background-color: #ffffff;
+    color: #2d2d2d;  */
+    padding: 0 15px;
+    margin-right: 5px;
+    margin-bottom: 0;
+    line-height: 20px;
+    height: 20px;
+    -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
+    width: max-content;
+    border: none;
 }
 .add-button {
     width: 100px;

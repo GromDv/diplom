@@ -20,25 +20,25 @@
 <div data-th-switch="${list}" class="container bk-color">
     <h2 data-th-case="null">No records found!</h2>
     <div data-th-case="*" class="col-ms-12 main-list">
-        <h1 class="h1-title">ТЕКУЩИЕ ЗАДАЧИ</h1>
+        <h1 class="h1-title">СПИСОК ЗАДАЧ</h1>
         <div class="big-folder">
             <div class="color-folders">
-                <form method="get" data-th-action="@{{url}/tm/tasks/urgent(url=${urlWeb})}">
+                <form method="get" data-th-action="@{{url}/tasks/urgent(url=${urlWeb})}">
                     <input type="submit" class="status-folder urgent-task" value="срочные">
                 </form>
-                <form method="get" data-th-action="@{{url}/tm/tasks/new(url=${urlWeb})}">
+                <form method="get" data-th-action="@{{url}/tasks/new(url=${urlWeb})}">
                     <input type="submit" class="status-folder new-task" value="новые">
                 </form>
-                <form method="get" data-th-action="@{{url}/tm/tasks/progress(url=${urlWeb})}">
+                <form method="get" data-th-action="@{{url}/tasks/progress(url=${urlWeb})}">
                     <input type="submit" class="status-folder progress-task" value="в работе">
                 </form>
-                <form method="get" data-th-action="@{{url}/tm/tasks/paused(url=${urlWeb})}">
-                    <input type="submit" class="status-folder paused-task" value="проблемные">
+                <form method="get" data-th-action="@{{url}/tasks/paused(url=${urlWeb})}">
+                    <input type="submit" class="status-folder paused-task" value="остановленные">
                 </form>
-                <form method="get" data-th-action="@{{url}/tm/tasks/completed(url=${urlWeb})}">
+                <form method="get" data-th-action="@{{url}/tasks/completed(url=${urlWeb})}">
                     <input type="submit" class="status-folder completed-task" value="готовы">
                 </form>
-                <form method="get" data-th-action="@{{url}/tm(url=${urlWeb})}">
+                <form method="get" data-th-action="@{{url}/(url=${urlWeb})}">
                     <input type="submit" class="status-folder all-task" value="все">
                 </form>
             </div>
@@ -49,18 +49,33 @@
                         <p data-th-text="${task.name}"></p>
                     </div>
                     <div class="folder">
+<!--                        <form method="get" action="">-->
+<!--                            <input type="submit" class="task-menu task-history" value="история">-->
+<!--                        </form>-->
+<!--                        <form method="get" action="">-->
+<!--                            <input type="submit" class="task-menu task-mess" value="переписка">-->
+<!--                        </form>-->
+<!--                        <form method="get" action="">-->
+<!--                            <input type="submit" class="task-menu task-adds" value="приложения">-->
+<!--                        </form>-->
+<!--                        <form method="get" action="">-->
+<!--                            <input type="submit" class="task-menu task-curr" value="информация">-->
+<!--                        </form>-->
+
                         <div class="inf">
-                            <div>
-                                <p>status: <span data-th-text="${task.status}" class="ref"></span></p>
-                                <p>Создана: <span data-th-text="${task.dateCreate}" class="ref"></span></p>
-                                <p>Подробно: <span data-th-text="${task.description}" class="ref"></span></p>
-                            </div>
+                            <a data-th-href="@{{url}/task/{id}(url=${urlWeb},id=${task.id})}">
+                                <div>
+                                    <p>Создана: <span data-th-text="${task.dateCreate}" class="ref"></span></p>
+                                    <p>Описание: <span data-th-text="${task.description}" class="ref"></span></p>
+                                    <p>Статус: <span data-th-text="${task.status}" class="ref"></span></p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <form method="get" data-th-action="@{{url}/tm/add(url=${urlWeb})}" data-th-object="${Task}">
+        <form method="get" data-th-action="@{{url}/add(url=${urlWeb})}" data-th-object="${Task}">
             <input type="submit" class="add-button" value="+">
         </form>
     </div>
