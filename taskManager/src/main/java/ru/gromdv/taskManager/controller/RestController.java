@@ -11,6 +11,7 @@ import ru.gromdv.taskManager.model.TaskStatus;
 import ru.gromdv.taskManager.service.TaskService;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,8 +59,8 @@ public class RestController {
         return ResponseEntity.ok().body(t);
     }
     @GetMapping("/task/{id}")
-    public ResponseEntity<Task> getTasksList(@PathVariable Long id) {
-        Task task = servise.getTaskById(id);
+    public ResponseEntity<TaskDto> getTasksList(@PathVariable Long id) {
+        TaskDto task = new DtoMapper().toDto(servise.getTaskById(id));
         log.log(Level.INFO, String.format("Task: %s", task));
         if(task != null)
             return ResponseEntity.ok().body(task);

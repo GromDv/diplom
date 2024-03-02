@@ -8,18 +8,21 @@ import java.time.LocalDateTime;
 
 @Data
 public class TaskDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     private String name;
 
     private String description;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private TaskStatus status;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String statusGood;
+
     private LocalDateTime dateCreate;
 
+    private String dateCreateGood;
+
     private LocalDateTime dateComplete;
+
+    private String dateCompleteGood;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gromdv.webService.config.AppConfig;
+import ru.gromdv.webService.dto.TaskDto;
 import ru.gromdv.webService.model.Task;
 import ru.gromdv.webService.service.TasksApiImpl;
 import org.springframework.ui.Model;
@@ -79,10 +80,9 @@ public class WebController {
     }
     @GetMapping("/task/{id}")
     public String getTaskById(Model model, @PathVariable Long id) {
-        Task task = tasksApi.getTaskById(id);
+        TaskDto task = tasksApi.getTaskById(id);
+        log.log(Level.INFO, String.format("Task: %s", task));
         model.addAttribute("task", task);
-        model.addAttribute("created", task.getGoodDateCreate());
-        model.addAttribute("status", tasksApi.getStatusName(task.getStatus()));
         return "task-view.html";
     }
 

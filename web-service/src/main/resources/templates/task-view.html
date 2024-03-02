@@ -76,7 +76,7 @@
         <div class="col-sm-12 col-lg-1 side d-none d-lg-block">&nbsp;</div>
         <div class="col-sm-12 col-lg-10 cent">
             <div style="width: 100%;padding: 20px 0;">
-                <h2 style="text-align: center;">Задача №<span data-th-text="${task.id}"></span></h2>
+                <h2 style="text-align: center;">Задача № <span data-th-text="${task.id}"></span></h2>
 
                 <div style="width: 100%;display: flex;">
                     <div style="">
@@ -100,7 +100,15 @@
                                 <p><b>Создана: </b></p>
                             </div>
                             <div class="tsk-name">
-                                <p data-th-text="${created}"></p>
+                                <p data-th-text="${task.dateCreateGood}"></p>
+                            </div>
+                        </div>
+                        <div class="tsk-descr">
+                            <div>
+                                <p><b>Выполнена: </b></p>
+                            </div>
+                            <div class="tsk-name">
+                                <p data-th-text="${task.dateCompleteGood}"></p>
                             </div>
                         </div>
                         <div class="tsk-descr">
@@ -124,7 +132,7 @@
                                 <p><b>Статус: </b></p>
                             </div>
                             <div class="tsk-name">
-                                <p data-th-text="${status}"></p>
+                                <p data-th-text="${task.statusGood}"></p>
                             </div>
                         </div>
 

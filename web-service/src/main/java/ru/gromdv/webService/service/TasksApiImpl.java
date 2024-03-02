@@ -48,23 +48,16 @@ public class TasksApiImpl {
         return (List<Task>) response.getBody();
     }
 
-    public String getStatusName(TaskStatus status) {
-        return switch (status) {
-            case NEW_TASK -> "Новое";
-            case IN_PROGRESS -> "В работе";
-            case COMPLETED -> "Выполнено";
-            case PAUSED -> "Остановлено";
-            case URGENT -> "Срочное";
-            case CANCELED -> "Отменено";
-            default -> "не определен";
-        };
-    }
-
-    public Task getTaskById(Long id) {
+    /**
+     * Получить задачу по её id
+     * @param id
+     * @return
+     */
+    public TaskDto getTaskById(Long id) {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
         String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/task/" + id;
-        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, Task.class);
-        return (Task) response.getBody();
+        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, TaskDto.class);
+        return (TaskDto) response.getBody();
     }
 }

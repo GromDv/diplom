@@ -17,8 +17,11 @@ public class DtoMapper {
         taskDto.setName(task.getName());
         taskDto.setDescription(task.getDescription());
         taskDto.setDateCreate(task.getDateCreate());
+        taskDto.setDateCreateGood(task.getDateCreate());
         taskDto.setStatus(task.getStatus());
+        taskDto.setStatusGood(task.getStatus());
         taskDto.setDateComplete(task.getDateComplete());
+        taskDto.setDateCompleteGood(task.getDateComplete());
         return taskDto;
     }
 
