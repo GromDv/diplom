@@ -2,6 +2,8 @@ package ru.gromdv.webService.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.*;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.gromdv.webService.config.AppConfig;
@@ -22,7 +24,6 @@ public class TasksApiImpl {
     private RestTemplate template;
     private HttpHeaders headers;
     private final AppConfig appConfig;
-
 
     public List<Task> getAllTasks() {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
@@ -60,4 +61,6 @@ public class TasksApiImpl {
         ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, TaskDto.class);
         return (TaskDto) response.getBody();
     }
+
+
 }

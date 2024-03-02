@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: user-service-ms
+  config:
+    enabled: true
+    import: configserver:http://localhost:8888

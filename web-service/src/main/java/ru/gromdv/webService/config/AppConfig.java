@@ -13,4 +13,5 @@ public class AppConfig {
     private String gatewayPort;
     private String urlApiTasks;
     private String urlApiMessages;
+    private String urlApiUsers;
 }

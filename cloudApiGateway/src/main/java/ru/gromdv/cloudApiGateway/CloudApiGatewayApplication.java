@@ -18,8 +18,8 @@ public class CloudApiGatewayApplication {
 		return builder.routes()
 				.route("taskmanager-ms",r->r.path("/tasks/**")
 						.uri("http://localhost:8087/"))
-//				.route("web-service",r->r.path("/tm/**")
-//						.uri("http://localhost:8086/"))
+				.route("user-service-ms",r->r.path("/users/**")
+						.uri("http://localhost:8085/"))
 				.route("message-service-ms",r->r.path("/messages/**")
 						.uri("http://localhost:8088/")).build();}
 

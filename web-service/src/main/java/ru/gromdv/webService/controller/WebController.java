@@ -3,6 +3,8 @@ package ru.gromdv.webService.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gromdv.webService.config.AppConfig;
 import ru.gromdv.webService.dto.TaskDto;
 import ru.gromdv.webService.model.Task;
+import ru.gromdv.webService.model.User;
 import ru.gromdv.webService.service.TasksApiImpl;
 import org.springframework.ui.Model;
+import ru.gromdv.webService.service.UserApiImpl;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +29,8 @@ public class WebController {
     private final AppConfig appConfig;
     @Autowired
     private final TasksApiImpl tasksApi;
+    @Autowired
+    private final UserApiImpl userApi;
 
     @GetMapping("/")
     public String getTasksList(Model model) {
@@ -84,6 +90,19 @@ public class WebController {
         log.log(Level.INFO, String.format("Task: %s", task));
         model.addAttribute("task", task);
         return "task-view.html";
+    }
+    @GetMapping("/lk")
+    public String showUserInfo(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        User user = userApi.getByUsername(username);
+        model.addAttribute("user", user);
+        return "personal.html";
     }
 
 }
