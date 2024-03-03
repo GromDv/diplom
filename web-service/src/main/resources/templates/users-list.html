@@ -133,77 +133,30 @@
                     <form method="get" data-th-action="@{/}" style="margin-right: 20px;">
                         <input type="submit" class="icon-park-twotone--back" value="">
                     </form>
-                    <div sec:authorize="hasRole('ROLE_ADMIN')" style="display: flex;">
-                        <form method="get" data-th-action="@{{url}/list-dev(url=${urlWeb})}" style="margin-right: 20px;">
-                            <input type="submit" class="flowbite--users-group-outline" value="">
-                        </form>
-                        <form method="get" data-th-action="@{{url}/create-user(url=${urlWeb})}" >
-                            <input type="submit" class="icomoon-free--user-plus" value="">
-                        </form>
-                    </div>
-<!--                    <div sec:authorize="hasRole('ROLE_DEVELOPER')" style="display: flex;">-->
-<!--                        <form method="get" data-th-action="@{{url}/lk(url=${urlWeb})}" style="margin-right: 20px;">-->
-<!--                            <input type="submit" class="flowbite&#45;&#45;users-group-outline" value="">-->
-<!--                        </form>-->
-<!--                        <form method="get" data-th-action="@{{url}/create-user(url=${urlWeb})}" >-->
-<!--                            <input type="submit" class="icomoon-free&#45;&#45;user-plus" value="">-->
-<!--                        </form>-->
-<!--                    </div>-->
-                    <form method="POST" data-th-action="@{/logout}">
-                        <input type="submit" class="mdi--logout-variant" value="">
-                    </form>
                 </div>
 
                 <div style="width: 100%;display: flex;">
                     <div style="background-color: #fffefc;width: 100%;">
-                        <div class="tsk-descr">
-                            <div>
-                                <p><b>id: </b></p>
-                            </div>
-                            <div class="tsk-name">
-                                <p data-th-text="${user.id}"></p>
-                            </div>
-                        </div>
-                        <div class="tsk-descr">
-                            <div>
-                                <p><b>login: </b></p>
-                            </div>
-                            <div class="tsk-name">
+
+
+                        <div data-th-each="user : ${list}"  >
+                            <div class="title">
                                 <p data-th-text="${user.username}"></p>
                             </div>
-                        </div>
-                        <div class="tsk-descr">
-                            <div>
-                                <p><b>lastName: </b></p>
-                            </div>
-                            <div class="tsk-name">
-                                <p data-th-text="${user.lastName}"></p>
-                            </div>
-                        </div>
-                        <div class="tsk-descr">
-                            <div>
-                                <p><b>pw: </b></p>
-                            </div>
-                            <div class="tsk-name">
-                                <p data-th-text="${user.password}"></p>
+                            <div class="">
+                                <div class="">
+                                    <a href="">
+                                        <div>
+                                            <p>Создан: <span data-th-text="${user.dateCreate}" class="ref"></span></p>
+                                            <p>Имя: <span data-th-text="${user.username}" class="ref"></span></p>
+                                            <p>Фамилия: <span data-th-text="${user.lastName}" class="ref"></span></p>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="tsk-descr">
-                            <div>
-                                <p><b>e-mail: </b></p>
-                            </div>
-                            <div class="tsk-name">
-                                <p data-th-text="${user.eMail}"></p>
-                            </div>
-                        </div>
-                        <div class="tsk-descr" sec:authorize="hasRole('ROLE_ADMIN')">
-                            <div>
-                                <p><b>role: </b></p>
-                            </div>
-                            <div class="tsk-name">
-                                <p data-th-text="${user.status}"></p>
-                            </div>
-                        </div>
+
+
                     </div>
                 </div>
             </div>

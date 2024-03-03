@@ -6,16 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.gromdv.webService.config.AppConfig;
 import ru.gromdv.webService.dto.TaskDto;
+import ru.gromdv.webService.dto.TaskGetDto;
 import ru.gromdv.webService.model.Task;
 import ru.gromdv.webService.model.User;
+import ru.gromdv.webService.model.UserDto;
+import ru.gromdv.webService.model.UserStatus;
 import ru.gromdv.webService.service.TasksApiImpl;
 import org.springframework.ui.Model;
+import ru.gromdv.webService.service.UserApi;
 import ru.gromdv.webService.service.UserApiImpl;
 
 import java.util.List;
@@ -80,13 +81,13 @@ public class WebController {
     }
 
     @PostMapping("/create")
-    public String createTask(Task task) {
+    public String createTask(TaskDto task) {
         tasksApi.createTask(task);
         return "redirect:/";
     }
     @GetMapping("/task/{id}")
     public String getTaskById(Model model, @PathVariable Long id) {
-        TaskDto task = tasksApi.getTaskById(id);
+        TaskGetDto task = tasksApi.getTaskById(id);
         log.log(Level.INFO, String.format("Task: %s", task));
         model.addAttribute("task", task);
         return "task-view.html";
@@ -102,7 +103,41 @@ public class WebController {
         }
         User user = userApi.getByUsername(username);
         model.addAttribute("user", user);
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
+        model.addAttribute("urlWeb", urlWeb);
         return "personal.html";
     }
+    @GetMapping("/list-dev")
+    public String showDevUserList(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        User user = userApi.getByUsername(username);
+        List<User> list = userApi.getUserListByDevId(user.getDevId());
+        model.addAttribute("list", list);
+        return "users-list.html";
+    }
+    @GetMapping("/create-user")
+    public String addUser(Model model) {
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort() + "/create-user";
+        model.addAttribute("urlWeb", urlWeb);
+        return "create-user.html";
+    }
 
+    @PostMapping("/create-user")
+    public String createUser(UserDto u) {
+        User user = new User();
+        user.setUsername(u.getUsername());
+        user.setLastName(u.getLastName());
+        user.setEMail(u.getEMail());
+        user.setPassword(u.getPassword());
+        user.setStatus(UserStatus.DEV);
+        user.setDevId(0L);
+        userApi.createUser(user);
+        return "redirect:/lk";
+    }
 }

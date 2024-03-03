@@ -3,6 +3,7 @@ package ru.gromdv.webService.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 
@@ -17,8 +18,10 @@ public class Task {
 
     private TaskStatus status;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dateCreate;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dateComplete;
 
     public String getGoodDateCreate() {
