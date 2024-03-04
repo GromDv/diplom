@@ -7,6 +7,7 @@ import ru.gromdv.userService.model.UserStatus;
 import ru.gromdv.userService.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -23,9 +24,8 @@ public class UserService {
     }
 
     public User save(User user) {
-        User u = new User();
-        u = repository.saveAndFlush(user);
-        return u;
+        repository.save(user);
+        return user;
     }
 
     public List<User> getUserListByStatus(UserStatus status) {
@@ -34,5 +34,13 @@ public class UserService {
 
     public List<User> getUserListByDevId(Long devId) {
         return repository.findAllByDevId(devId);
+    }
+
+    public void deleteUserById(Long id) {
+        repository.deleteById(id);
+    }
+
+    public Optional<User> getUserById(Long id) {
+        return repository.findById(id);
     }
 }

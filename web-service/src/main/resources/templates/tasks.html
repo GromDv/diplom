@@ -53,25 +53,12 @@
                         <p data-th-text="${task.name}"></p>
                     </div>
                     <div class="folder">
-<!--                        <form method="get" action="">-->
-<!--                            <input type="submit" class="task-menu task-history" value="история">-->
-<!--                        </form>-->
-<!--                        <form method="get" action="">-->
-<!--                            <input type="submit" class="task-menu task-mess" value="переписка">-->
-<!--                        </form>-->
-<!--                        <form method="get" action="">-->
-<!--                            <input type="submit" class="task-menu task-adds" value="приложения">-->
-<!--                        </form>-->
-<!--                        <form method="get" action="">-->
-<!--                            <input type="submit" class="task-menu task-curr" value="информация">-->
-<!--                        </form>-->
-
                         <div class="inf">
                             <a data-th-href="@{{url}/task/{id}(url=${urlWeb},id=${task.id})}">
                                 <div>
-                                    <p>Создана: <span data-th-text="${task.dateCreate}" class="ref"></span></p>
+                                    <p>Создана: <span data-th-text="${task.dateCreateGood}" class="ref"></span></p>
                                     <p>Описание: <span data-th-text="${task.description}" class="ref"></span></p>
-                                    <p>Статус: <span data-th-text="${task.status}" class="ref"></span></p>
+                                    <p>Статус: <span data-th-text="${task.statusGood}" class="ref"></span></p>
                                 </div>
                             </a>
                         </div>

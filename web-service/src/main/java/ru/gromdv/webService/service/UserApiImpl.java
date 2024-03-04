@@ -6,6 +6,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.gromdv.webService.config.AppConfig;
+import ru.gromdv.webService.dto.UserGetDto;
 import ru.gromdv.webService.model.Task;
 import ru.gromdv.webService.model.User;
 
@@ -35,7 +36,7 @@ public class UserApiImpl {
         String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiUsers() + "/list";
         ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, List.class);
 
-        log.log(Level.INFO, String.format("Users: %s", (List<User>) response.getBody()));
+//        log.log(Level.INFO, String.format("Users: %s", (List<User>) response.getBody()));
         return (List<User>) response.getBody();
     }
 
@@ -46,17 +47,35 @@ public class UserApiImpl {
                 + appConfig.getUrlApiUsers() + "/user/"+ username;
         ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, User.class);
 
-        log.log(Level.INFO, String.format("Users: %s", (User) response.getBody()));
+//        log.log(Level.INFO, String.format("Users: %s", (User) response.getBody()));
         return (User) response.getBody();
     }
 
-    public List<User> getUserListByDevId(Long devId) {
+    public List<UserGetDto> getUserListByDevId(Long devId) {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiUsers() + "/list";
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiUsers() + "/list-dev/" + devId;
         ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, List.class);
 
-        log.log(Level.INFO, String.format("Users: %s", (List<User>) response.getBody()));
-        return (List<User>) response.getBody();
+        log.log(Level.INFO, String.format("Users: %s", (List<UserGetDto>) response.getBody()));
+        return (List<UserGetDto>) response.getBody();
+    }
+
+    public void deleteUserById(Long id) {
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiUsers() + "/delete/" + id;
+        template.delete(url);
+    }
+
+    public User findUserById(Long id) {
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort()
+                + appConfig.getUrlApiUsers() + "/user-id/"+ id;
+        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, User.class);
+
+//        log.log(Level.INFO, String.format("Users: %s", (User) response.getBody()));
+        return (User) response.getBody();
     }
 }

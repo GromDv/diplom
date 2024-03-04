@@ -130,25 +130,19 @@
             <div style="width: 100%;padding: 20px 0;">
                 <div style="width: 100%; text-align: center;"><h2>Личный кабинет</h2></div>
                 <div style="display: flex;justify-content: space-between;">
-                    <form method="get" data-th-action="@{/}" style="margin-right: 20px;">
+                    <form method="get" data-th-action="${refBack}" style="margin-right: 20px;">
                         <input type="submit" class="icon-park-twotone--back" value="">
                     </form>
-                    <div sec:authorize="hasRole('ROLE_ADMIN')" style="display: flex;">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" style="display: flex;" data-th-if="${showBtns}">
                         <form method="get" data-th-action="@{{url}/list-dev(url=${urlWeb})}" style="margin-right: 20px;">
                             <input type="submit" class="flowbite--users-group-outline" value="">
                         </form>
-                        <form method="get" data-th-action="@{{url}/create-user(url=${urlWeb})}" >
-                            <input type="submit" class="icomoon-free--user-plus" value="">
+                    </div>
+                    <div sec:authorize="hasRole('ROLE_DEVELOPER')" style="display: flex;" data-th-if="${showBtns}">
+                        <form method="get" data-th-action="@{{url}/list-dev(url=${urlWeb})}" style="margin-right: 20px;">
+                            <input type="submit" class="flowbite--users-group-outline" value="">
                         </form>
                     </div>
-<!--                    <div sec:authorize="hasRole('ROLE_DEVELOPER')" style="display: flex;">-->
-<!--                        <form method="get" data-th-action="@{{url}/lk(url=${urlWeb})}" style="margin-right: 20px;">-->
-<!--                            <input type="submit" class="flowbite&#45;&#45;users-group-outline" value="">-->
-<!--                        </form>-->
-<!--                        <form method="get" data-th-action="@{{url}/create-user(url=${urlWeb})}" >-->
-<!--                            <input type="submit" class="icomoon-free&#45;&#45;user-plus" value="">-->
-<!--                        </form>-->
-<!--                    </div>-->
                     <form method="POST" data-th-action="@{/logout}">
                         <input type="submit" class="mdi--logout-variant" value="">
                     </form>

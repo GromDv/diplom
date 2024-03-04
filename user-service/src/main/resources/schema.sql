@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
     dev_id INT default 0,
     username VARCHAR(100) not null,
     password VARCHAR(100) not null,
+    first_name VARCHAR(100) not null,
     last_name VARCHAR(100) not null,
     e_mail VARCHAR(100) not null,
     status VARCHAR(50),

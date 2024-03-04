@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gromdv.userService.dto.DtoMapper;
+import ru.gromdv.userService.dto.UserDto;
 import ru.gromdv.userService.model.User;
 import ru.gromdv.userService.model.UserStatus;
 import ru.gromdv.userService.service.UserService;
@@ -50,8 +52,8 @@ public class RestController {
      * @return
      */
     @GetMapping("/list-dev/{devId}")
-    public ResponseEntity<List<User>> getUsersListByDevId(@PathVariable Long devId) {
-        List<User> list = servise.getUserListByDevId(devId);
+    public ResponseEntity<List<UserDto>> getUsersListByDevId(@PathVariable Long devId) {
+        List<UserDto> list = servise.getUserListByDevId(devId).stream().map(DtoMapper::toDto).toList();
         log.log(Level.INFO, String.format("LIST: %s", list));
 
         return ResponseEntity.ok().body(list);
@@ -69,6 +71,14 @@ public class RestController {
         return ResponseEntity.ok().body(user);
     }
 
+    @GetMapping("/user-id/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = servise.getUserById(id).orElse(null);
+//        log.log(Level.INFO, String.format("USER: %s", user));
+
+        return ResponseEntity.ok().body(user);
+    }
+
     /**
      * Создаём нового пользователя
      * @param user
@@ -76,8 +86,13 @@ public class RestController {
      */
     @PostMapping("/create")
     public ResponseEntity<?> createUserForm(@RequestBody User user) {
-        User u = new User();
-        u = servise.save(user);
-        return ResponseEntity.ok().body(u);
+        user.setDateCreate(LocalDateTime.now());
+        user = servise.save(user);
+        return ResponseEntity.ok().body(user);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteUserById(@PathVariable Long id) {
+        servise.deleteUserById(id);
     }
 }

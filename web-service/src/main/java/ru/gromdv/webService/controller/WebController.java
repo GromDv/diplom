@@ -6,17 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.gromdv.webService.config.AppConfig;
-import ru.gromdv.webService.dto.TaskDto;
-import ru.gromdv.webService.dto.TaskGetDto;
+import ru.gromdv.webService.dto.*;
 import ru.gromdv.webService.model.Task;
 import ru.gromdv.webService.model.User;
-import ru.gromdv.webService.model.UserDto;
 import ru.gromdv.webService.model.UserStatus;
 import ru.gromdv.webService.service.TasksApiImpl;
-import org.springframework.ui.Model;
-import ru.gromdv.webService.service.UserApi;
 import ru.gromdv.webService.service.UserApiImpl;
 
 import java.util.List;
@@ -38,12 +37,12 @@ public class WebController {
         List<Task> tasks = tasksApi.getAllTasks();
 
         String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
-        log.log(Level.INFO, String.format("urlWebService: %s", urlWeb));
+//        log.log(Level.INFO, String.format("urlWebService: %s", urlWeb));
         model.addAttribute("bcolor", "magenta");
         model.addAttribute("list", tasks);
         model.addAttribute("status", "all");
         model.addAttribute("urlweb", urlWeb);
-        log.log(Level.INFO, String.format("urlweb: %s", urlWeb));
+//        log.log(Level.INFO, String.format("urlweb: %s", urlWeb));
 
         return "tasks.html";
     }
@@ -64,7 +63,7 @@ public class WebController {
         model.addAttribute("status", status);
         model.addAttribute("list", tasks);
         model.addAttribute("urlweb", urlWeb);
-        log.log(Level.INFO, String.format("urlweb: %s", urlWeb));
+//        log.log(Level.INFO, String.format("urlweb: %s", urlWeb));
 
         return "tasks.html";
     }
@@ -94,30 +93,29 @@ public class WebController {
     }
     @GetMapping("/lk")
     public String showUserInfo(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        User user = userApi.getByUsername(username);
-        model.addAttribute("user", user);
+        model.addAttribute("user", getCurrentUser());
         String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
+        String refBack = "/";
+        model.addAttribute("showBtns", true);
+        model.addAttribute("refBack", refBack);
+        model.addAttribute("urlWeb", urlWeb);
+        return "personal.html";
+    }
+    @GetMapping("/lk-user/{id}")
+    public String getUserInfo(Model model, @PathVariable Long id) {
+        model.addAttribute("user", userApi.findUserById(id));
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
+        String refBack = "/list-dev";
+        model.addAttribute("showBtns", false);
+        model.addAttribute("refBack", refBack);
         model.addAttribute("urlWeb", urlWeb);
         return "personal.html";
     }
     @GetMapping("/list-dev")
     public String showDevUserList(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        User user = userApi.getByUsername(username);
-        List<User> list = userApi.getUserListByDevId(user.getDevId());
+        List<UserGetDto> list = userApi.getUserListByDevId(getCurrentUser().getId());
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
+
         model.addAttribute("list", list);
         return "users-list.html";
     }
@@ -129,15 +127,37 @@ public class WebController {
     }
 
     @PostMapping("/create-user")
-    public String createUser(UserDto u) {
-        User user = new User();
-        user.setUsername(u.getUsername());
-        user.setLastName(u.getLastName());
-        user.setEMail(u.getEMail());
-        user.setPassword(u.getPassword());
-        user.setStatus(UserStatus.DEV);
-        user.setDevId(0L);
+    public String createUser(UserDto usr) {
+        User currUser = getCurrentUser();
+        User user = usr.fromDto();
+        user.setDevId(currUser.getId());
+        user.setStatus(getAlaudStatus(currUser.getStatus()));
         userApi.createUser(user);
-        return "redirect:/lk";
+        return "redirect:/list-dev";
+    }
+    @PostMapping("/delete-user/{id}")
+    public String deleteUserById(@PathVariable Long id) {
+        userApi.deleteUserById(id);
+        return "redirect:/list-dev";
+    }
+
+
+
+    private User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        return userApi.getByUsername(username);
+    }
+    private UserStatus getAlaudStatus(UserStatus status) {
+        return switch (status) {
+            case ADMIN -> UserStatus.DEV;
+            case DEV -> UserStatus.AUTHOR;
+            default -> null;
+        };
     }
 }

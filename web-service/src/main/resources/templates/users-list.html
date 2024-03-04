@@ -20,55 +20,22 @@
             justify-content: center;
             background-color: #ffffdf;
         }
-        .btn {
-            width: 100%;
-            text-align: center;
-            margin: 15px auto;
-        }
-        .tsk-name {
-            width: 100%;
-            text-align: justify;
-            margin-left: 25px;
-        }
-        .tsk-descr {
-            display: flex;
-            margin: 0 5px 10px 5%;
-            flex-wrap: wrap;
-        }
-        .task-menu {
-            writing-mode: vertical-lr;
-            /*text-orientation: upright;*/
-            padding: 20px 0;
-            height: fit-content;
-            border: none;
-            -webkit-clip-path: polygon(0% 10%, 100% 0, 100% 100%, 0% 90%);
-        }
-        .task-mess {
-            background-color: green;
-            color: white;
-        }
-        .task-info {
-            background-color: blue;
-            color: white;
-        }
-        .task-adds {
-            background-color: red;
-            color: white;
-        }
-        .task-history {
-            background-color: orange;
-            color: white;
-        }
-        .task-curr {
-            background-color: white;
-            color: black;
+        .title {
+            background-color: #e7e7e7;
+            color: #2d2d2d;
+            padding: 0 30px;
+            margin-bottom: 0px;
+            line-height: 20px;
+            height: 20px;
+            -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
+            width: max-content;
         }
         .icomoon-free--user-plus {
             display: inline-block;
             width: 40px;
             height: 40px;
             --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M6 11.5a5.508 5.508 0 0 1 3.594-5.159A4.574 4.574 0 0 0 10 4.5C10 2.015 10 0 7 0S4 2.015 4 4.5c0 1.548.898 3.095 2 3.716v.825C2.608 9.318 0 10.985 0 13h6.208A5.5 5.5 0 0 1 6 11.5'/%3E%3Cpath fill='%23000' d='M11.5 7a4.5 4.5 0 1 0 0 9a4.5 4.5 0 0 0 0-9m2.5 5h-2v2h-1v-2H9v-1h2V9h1v2h2z'/%3E%3C/svg%3E");
-            background-color: currentColor;
+            background-color: blue;
             -webkit-mask-image: var(--svg);
             mask-image: var(--svg);
             -webkit-mask-repeat: no-repeat;
@@ -89,25 +56,12 @@
             -webkit-mask-size: 100% 100%;
             mask-size: 100% 100%;
         }
-        .mdi--logout-variant {
+        .fluent--person-delete-24-regular {
             display: inline-block;
             width: 40px;
             height: 40px;
-            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M14.08 15.59L16.67 13H7v-2h9.67l-2.59-2.59L15.5 7l5 5l-5 5zM19 3a2 2 0 0 1 2 2v4.67l-2-2V5H5v14h14v-2.67l2-2V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2z'/%3E%3C/svg%3E");
-            background-color: currentColor;
-            -webkit-mask-image: var(--svg);
-            mask-image: var(--svg);
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-size: 100% 100%;
-            mask-size: 100% 100%;
-        }
-        .flowbite--users-group-outline {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-width='2' d='M4.5 17H4a1 1 0 0 1-1-1a3 3 0 0 1 3-3h1m0-3a2.5 2.5 0 1 1 2-4.5M19.5 17h.5c.6 0 1-.4 1-1a3 3 0 0 0-3-3h-1m0-3a2.5 2.5 0 1 0-2-4.5m.5 13.5h-7a1 1 0 0 1-1-1a3 3 0 0 1 3-3h3a3 3 0 0 1 3 3c0 .6-.4 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0Z'/%3E%3C/svg%3E");
-            background-color: currentColor;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11m-5.477 2a6.47 6.47 0 0 0-.709 1.5h-7.06a.75.75 0 0 0-.75.75v.907c0 .656.286 1.28.783 1.707C5.545 19.945 7.441 20.5 10 20.5c.6 0 1.162-.03 1.688-.09c.25.5.563.963.93 1.38c-.803.14-1.676.21-2.618.21c-2.89 0-5.128-.656-6.69-2a3.75 3.75 0 0 1-1.306-2.844v-.907A2.25 2.25 0 0 1 4.254 14zm3.07.966l-.069.058l-.058.07a.5.5 0 0 0 0 .568l.058.07l1.77 1.769l-1.767 1.767l-.058.069a.5.5 0 0 0 0 .569l.058.069l.069.058a.5.5 0 0 0 .569 0l.069-.058l1.767-1.767l1.769 1.77l.069.057a.5.5 0 0 0 .569 0l.069-.058l.058-.07a.5.5 0 0 0 0-.568l-.058-.069l-1.77-1.77l1.773-1.768l.058-.07a.5.5 0 0 0 0-.568l-.058-.07l-.07-.057a.5.5 0 0 0-.568 0l-.07.057l-1.771 1.77l-1.77-1.77l-.069-.057a.501.501 0 0 0-.492-.044zM10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10m0 1.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7'/%3E%3C/svg%3E");
+            background-color: red;
             -webkit-mask-image: var(--svg);
             mask-image: var(--svg);
             -webkit-mask-repeat: no-repeat;
@@ -128,31 +82,45 @@
         <div class="col-sm-12 col-lg-1 side d-none d-lg-block">&nbsp;</div>
         <div class="col-sm-12 col-lg-10 cent">
             <div style="width: 100%;padding: 20px 0;">
-                <div style="width: 100%; text-align: center;"><h2>Личный кабинет</h2></div>
+                <div style="width: 100%; text-align: center;"><h2>Список связанных пользователей</h2></div>
                 <div style="display: flex;justify-content: space-between;">
-                    <form method="get" data-th-action="@{/}" style="margin-right: 20px;">
+                    <form method="get" data-th-action="@{/lk}" style="margin-right: 20px;">
                         <input type="submit" class="icon-park-twotone--back" value="">
+                    </form>
+                    <form method="get" data-th-action="@{/create-user}" >
+                        <input type="submit" class="icomoon-free--user-plus" value="">
                     </form>
                 </div>
 
                 <div style="width: 100%;display: flex;">
-                    <div style="background-color: #fffefc;width: 100%;">
+                    <div style="width: 100%;">
 
 
                         <div data-th-each="user : ${list}"  >
                             <div class="title">
-                                <p data-th-text="${user.username}"></p>
+                                <p>логин: <span data-th-text="${user.username}"></span></p>
                             </div>
-                            <div class="">
-                                <div class="">
-                                    <a href="">
-                                        <div>
-                                            <p>Создан: <span data-th-text="${user.dateCreate}" class="ref"></span></p>
-                                            <p>Имя: <span data-th-text="${user.username}" class="ref"></span></p>
-                                            <p>Фамилия: <span data-th-text="${user.lastName}" class="ref"></span></p>
+                            <div style="">
+                                <div style="background-color: #fcfcfc;
+                                            box-shadow: 2px 2px 5px #fffefe;
+                                            margin-bottom: 5px;
+                                            padding: 0 5px;
+                                            border: 1px solid lightgrey;
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;">
+                                    <a data-th-href="@{/lk-user/{id}(id=${user.id})}">
+                                        <div style="display: flex;">
+                                            <p><span data-th-text="${user.firstName}" class="ref"></span></p>
+                                            <p>&nbsp;<span data-th-text="${user.lastName}" class="ref"></span></p>
+                                            <p>,&nbsp;Создан: <span data-th-text="${user.dateCreateGood}" class="ref"></span></p>
                                         </div>
                                     </a>
+                                    <form method="post" data-th-action="@{/delete-user/{id}(id=${user.id})}">
+                                        <input type="submit" class="fluent--person-delete-24-regular" value="">
+                                    </form>
                                 </div>
+
                             </div>
                         </div>
 
