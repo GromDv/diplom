@@ -10,6 +10,7 @@ import ru.gromdv.webService.config.AppConfig;
 import ru.gromdv.webService.dto.ListDto;
 import ru.gromdv.webService.dto.TaskDto;
 import ru.gromdv.webService.dto.TaskGetDto;
+import ru.gromdv.webService.dto.TaskUpdateDto;
 import ru.gromdv.webService.model.Task;
 import ru.gromdv.webService.model.TaskStatus;
 import ru.gromdv.webService.model.User;
@@ -68,4 +69,10 @@ public class TasksApiImpl {
     }
 
 
+    public void update(Task task) {
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/update";
+        template.put(url, new TaskUpdateDto(task), TaskUpdateDto.class);
+    }
 }

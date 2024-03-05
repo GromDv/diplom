@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import ru.gromdv.webService.config.AppConfig;
 import ru.gromdv.webService.dto.*;
 import ru.gromdv.webService.model.Task;
@@ -19,7 +21,6 @@ import ru.gromdv.webService.service.TasksApiImpl;
 import ru.gromdv.webService.service.UserApiImpl;
 
 import java.util.List;
-import java.util.logging.Level;
 
 @Log
 @Controller
@@ -32,6 +33,11 @@ public class WebController {
     @Autowired
     private final UserApiImpl userApi;
 
+    /**
+     * Главная страница списка задач (всех)
+     * @param model
+     * @return
+     */
     @GetMapping("/")
     public String getTasksList(Model model) {
         List<Task> tasks = tasksApi.getAllTasks();
@@ -46,6 +52,13 @@ public class WebController {
 
         return "tasks.html";
     }
+
+    /**
+     * Страница списка задач по статусу
+     * @param model
+     * @param status
+     * @return
+     */
     @GetMapping("/tasks/{status}")
     public String getTasksByStatus(Model model, @PathVariable String status) {
         List<Task> tasks = tasksApi.getTasksByStatus(status);
@@ -68,6 +81,11 @@ public class WebController {
         return "tasks.html";
     }
 
+    /**
+     * Страница добавления задачи
+     * @param model
+     * @return
+     */
     @GetMapping("/add")
     public String addNewTask(Model model) {
         String urlApiTasks = appConfig.getHost()+appConfig.getGatewayPort();
@@ -84,13 +102,47 @@ public class WebController {
         tasksApi.createTask(task);
         return "redirect:/";
     }
+
+    /**
+     * Страница просмотра задачи
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/task/{id}")
     public String getTaskById(Model model, @PathVariable Long id) {
         TaskGetDto task = tasksApi.getTaskById(id);
-        log.log(Level.INFO, String.format("Task: %s", task));
+//        log.log(Level.INFO, String.format("Task: %s", task));
         model.addAttribute("task", task);
         return "task-view.html";
     }
+
+    /**
+     * Страница редактирования задачи
+     * @param model
+     * @param id
+     * @return
+     */
+    @GetMapping("/task-edit/{id}")
+    public String editTaskById(Model model, @PathVariable Long id) {
+        TaskGetDto task = tasksApi.getTaskById(id);
+//        log.log(Level.INFO, String.format("Task: %s", task));
+        model.addAttribute("task", task);
+        return "task-edit.html";
+    }
+
+    @PostMapping("/task-update")
+    public String updateTask(Model model, Task task) {
+//        Task task = new Task();
+        tasksApi.update(task);
+        return "redirect:/task/"+task.getId();
+    }
+
+    /**
+     * Страница "Личный кабинет"
+     * @param model
+     * @return
+     */
     @GetMapping("/lk")
     public String showUserInfo(Model model) {
         model.addAttribute("user", getCurrentUser());
@@ -101,6 +153,13 @@ public class WebController {
         model.addAttribute("urlWeb", urlWeb);
         return "personal.html";
     }
+
+    /**
+     * Просмотр ЛК связанного пользователя
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/lk-user/{id}")
     public String getUserInfo(Model model, @PathVariable Long id) {
         model.addAttribute("user", userApi.findUserById(id));
@@ -111,6 +170,12 @@ public class WebController {
         model.addAttribute("urlWeb", urlWeb);
         return "personal.html";
     }
+
+    /**
+     * Страница "Список связанных пользователей"
+     * @param model
+     * @return
+     */
     @GetMapping("/list-dev")
     public String showDevUserList(Model model) {
         List<UserGetDto> list = userApi.getUserListByDevId(getCurrentUser().getId());
@@ -119,6 +184,12 @@ public class WebController {
         model.addAttribute("list", list);
         return "users-list.html";
     }
+
+    /**
+     * Страница создания пользователя
+     * @param model
+     * @return
+     */
     @GetMapping("/create-user")
     public String addUser(Model model) {
         String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort() + "/create-user";
@@ -126,15 +197,26 @@ public class WebController {
         return "create-user.html";
     }
 
+    /**
+     * POST - запрос создания пользователя
+     * @param usr
+     * @return
+     */
     @PostMapping("/create-user")
     public String createUser(UserDto usr) {
         User currUser = getCurrentUser();
         User user = usr.fromDto();
         user.setDevId(currUser.getId());
-        user.setStatus(getAlaudStatus(currUser.getStatus()));
+        user.setStatus(getAllowedStatus(currUser.getStatus()));
         userApi.createUser(user);
         return "redirect:/list-dev";
     }
+
+    /**
+     * Удаление пользователя по id
+     * @param id
+     * @return
+     */
     @PostMapping("/delete-user/{id}")
     public String deleteUserById(@PathVariable Long id) {
         userApi.deleteUserById(id);
@@ -142,7 +224,10 @@ public class WebController {
     }
 
 
-
+    /**
+     * Вспомогательный метод получения текущего пользователя
+     * @return
+     */
     private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
@@ -153,7 +238,13 @@ public class WebController {
         }
         return userApi.getByUsername(username);
     }
-    private UserStatus getAlaudStatus(UserStatus status) {
+
+    /**
+     * Вспомогательный метод получения доступного статуса при создании нового пользователя
+     * @param status
+     * @return
+     */
+    private UserStatus getAllowedStatus(UserStatus status) {
         return switch (status) {
             case ADMIN -> UserStatus.DEV;
             case DEV -> UserStatus.AUTHOR;

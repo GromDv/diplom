@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 public class TaskGetDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+
     private Long id;
 
     private String name;
@@ -19,7 +19,6 @@ public class TaskGetDto {
 
     private String statusGood;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dateCreate;
 
     private String dateCreateGood;

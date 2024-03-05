@@ -28,4 +28,8 @@ public class TaskService {
     public Task getTaskById(Long id) {
         return repository.findById(id).orElse(null);
     }
+
+    public void saveTask(Task task) {
+        repository.save(task);
+    }
 }

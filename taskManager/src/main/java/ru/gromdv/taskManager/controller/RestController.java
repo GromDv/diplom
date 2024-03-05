@@ -58,6 +58,10 @@ public class RestController {
         servise.addNewTask(t);
         return ResponseEntity.ok().body(t);
     }
+    @PutMapping("/update")
+    public void putTask(@RequestBody Task task) {
+        servise.saveTask(task);
+    }
     @GetMapping("/task/{id}")
     public ResponseEntity<TaskDto> getTasksList(@PathVariable Long id) {
         TaskDto task = new DtoMapper().toDto(servise.getTaskById(id));

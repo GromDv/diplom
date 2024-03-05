@@ -18,10 +18,10 @@ public class Task {
 
     private TaskStatus status;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dateCreate;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dateComplete;
 
     public String getGoodDateCreate() {
@@ -29,7 +29,7 @@ public class Task {
         return dateCreate.format(formatter);
     }
     public String getGoodDateComplete() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
         return dateComplete.format(formatter);
     }
 }
