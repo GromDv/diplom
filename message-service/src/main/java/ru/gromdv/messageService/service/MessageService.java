@@ -16,4 +16,8 @@ public class MessageService {
     public List<Message> getMessList() {
         return repository.findAll();
     }
+
+    public List<Message> getListByTaskId(Long taskId) {
+        return repository.findAllByTaskId(taskId);
+    }
 }

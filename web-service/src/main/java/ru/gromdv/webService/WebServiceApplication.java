@@ -9,6 +9,11 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class WebServiceApplication {
 
+//	@Bean
+//	public ModelMapper modelMapper() {
+//		return  new ModelMapper();
+//	}
+
 	@Bean
 	public RestTemplate template(){
 		return new RestTemplate();

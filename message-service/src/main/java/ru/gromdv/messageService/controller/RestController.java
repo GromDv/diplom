@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gromdv.messageService.dto.DtoMapper;
 import ru.gromdv.messageService.dto.MessageDto;
+import ru.gromdv.messageService.model.Message;
 import ru.gromdv.messageService.service.MessageService;
 
 import java.util.List;
@@ -22,11 +24,18 @@ public class RestController {
     private final DtoMapper dtoMapper;
 
     @GetMapping("/list")
-    public ResponseEntity<List<MessageDto>> getTasksList() {
-        List<MessageDto> tasks = servise.getMessList()
-                .stream().map(dtoMapper::toDto).toList();
-        log.log(Level.INFO, String.format("LIST: %s", tasks));
+    public ResponseEntity<List<Message>> getFullList() {
+        List<Message> list = servise.getMessList();
+        log.log(Level.INFO, String.format("LIST mess: %s", list));
 
-        return ResponseEntity.ok().body(tasks);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<Message>> getListMessagesByTaskId(@PathVariable Long id) {
+        List<Message> list = servise.getListByTaskId(id);
+        log.log(Level.INFO, String.format("LIST mess: %s", list));
+
+        return ResponseEntity.ok().body(list);
     }
 }

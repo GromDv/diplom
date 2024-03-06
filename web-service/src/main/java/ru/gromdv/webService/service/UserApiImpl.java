@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.gromdv.webService.config.AppConfig;
 import ru.gromdv.webService.dto.UserGetDto;
-import ru.gromdv.webService.model.Task;
 import ru.gromdv.webService.model.User;
 
 import java.util.List;

@@ -143,7 +143,7 @@
                             <input type="submit" class="flowbite--users-group-outline" value="">
                         </form>
                     </div>
-                    <form method="POST" data-th-action="@{/logout}">
+                    <form method="POST" data-th-action="@{/logout}" data-th-if="${showBtns}">
                         <input type="submit" class="mdi--logout-variant" value="">
                     </form>
                 </div>

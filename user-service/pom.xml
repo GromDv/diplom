@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.gromdv</groupId>
-	<artifactId>message-service</artifactId>
+	<artifactId>user-service-ms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-service-ms</name>
 	<description>user-service-ms</description>

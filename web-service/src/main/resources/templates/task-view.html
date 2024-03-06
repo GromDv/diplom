@@ -122,7 +122,7 @@
                         <form method="get" action="">
                             <input type="submit" class="task-menu task-history" value="история">
                         </form>
-                        <form method="get" action="">
+                        <form method="get" data-th-action="@{/list-mess}">
                             <input type="submit" class="task-menu task-mess" value="переписка">
                         </form>
                         <form method="get" action="">
@@ -139,7 +139,7 @@
                                 Создана:
                             </div>
                             <div class="tsk-name">
-                                <p data-th-text="${task.dateCreateGood}"></p>
+                                <p data-th-text="${task.dateCreateFormatted}"></p>
                             </div>
                         </div>
                         <div class="tsk-descr">
@@ -147,8 +147,8 @@
                                 Выполнена:
                             </div>
                             <div class="tsk-name">
-                                <p data-th-if="${task.dateComplete} != ${task.dateComplete}" data-th-text="${task.dateCompleteGood}"></p>
-                                <p data-th-if="${task.dateComplete} == ${task.dateComplete}">-</p>
+                                <p data-th-if="${task.dateCreate} != ${task.dateComplete}" data-th-text="${task.dateCompleteFormatted}"></p>
+                                <p data-th-if="${task.dateCreate} == ${task.dateComplete}">-</p>
                             </div>
                         </div>
                         <div class="tsk-descr">
@@ -172,7 +172,7 @@
                                 Статус:
                             </div>
                             <div class="tsk-name">
-                                <p data-th-text="${task.statusGood}"></p>
+                                <p data-th-text="${task.status.title}"></p>
                             </div>
                         </div>
 

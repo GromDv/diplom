@@ -2,7 +2,6 @@ package ru.gromdv.webService.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -10,15 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 import ru.gromdv.webService.config.AppConfig;
 import ru.gromdv.webService.dto.*;
-import ru.gromdv.webService.model.Task;
-import ru.gromdv.webService.model.User;
-import ru.gromdv.webService.model.UserStatus;
-import ru.gromdv.webService.service.TasksApiImpl;
-import ru.gromdv.webService.service.UserApiImpl;
+import ru.gromdv.webService.model.*;
+import ru.gromdv.webService.service.*;
 
 import java.util.List;
 
@@ -26,12 +20,11 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class WebController {
-    @Autowired
+
     private final AppConfig appConfig;
-    @Autowired
     private final TasksApiImpl tasksApi;
-    @Autowired
     private final UserApiImpl userApi;
+    private final MessagesApi messApi;
 
     /**
      * Главная страница списка задач (всех)
@@ -99,6 +92,8 @@ public class WebController {
 
     @PostMapping("/create")
     public String createTask(TaskDto task) {
+        User currUser = getCurrentUser();
+        task.setAuthorId(currUser.getId());
         tasksApi.createTask(task);
         return "redirect:/";
     }
@@ -133,7 +128,8 @@ public class WebController {
 
     @PostMapping("/task-update")
     public String updateTask(Model model, Task task) {
-//        Task task = new Task();
+        User currUser = getCurrentUser();
+        task.setAuthorId(currUser.getId());
         tasksApi.update(task);
         return "redirect:/task/"+task.getId();
     }
@@ -222,6 +218,23 @@ public class WebController {
         userApi.deleteUserById(id);
         return "redirect:/list-dev";
     }
+
+    @GetMapping("/list-mess")
+    public String getAllMessages(Model model) {
+        List<MessageDto> list = messApi.getAllMess();
+        model.addAttribute("list", list);
+        return "mess-list.html";
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     /**

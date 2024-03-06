@@ -1,29 +1,57 @@
 package ru.gromdv.webService.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
+import ru.gromdv.webService.model.Task;
+import ru.gromdv.webService.model.TaskStatus;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskGetDto {
 
     private Long id;
+
+    private Long authorId;
 
     private String name;
 
     private String description;
 
-    private String status;
+    private TaskStatus status;
 
     private String statusGood;
 
     private LocalDateTime dateCreate;
 
-    private String dateCreateGood;
+    private String dateCreateFormatted;
 
     private LocalDateTime dateComplete;
 
-    private String dateCompleteGood;
+    private String dateCompleteFormatted;
+
+    public TaskGetDto(Task t) {
+        id = t.getId();
+        authorId = t.getAuthorId();
+        name = t.getName();
+        description = t.getDescription();
+        status = t.getStatus();
+        dateCreate = t.getDateCreate();
+        dateComplete = t.getDateComplete();
+        setDateCreateFormatted();
+        setDateCompleteFormatted();
+    }
+
+    public void setDateCreateFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+        dateCreateFormatted = dateCreate.format(formatter);
+    }
+    public void setDateCompleteFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+        dateCompleteFormatted =  dateComplete.format(formatter);
+    }
+
 }

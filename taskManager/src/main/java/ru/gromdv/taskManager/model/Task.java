@@ -14,6 +14,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "author_id")
+    private Long authorId;
+
     private String name;
 
     private String description;
@@ -27,4 +30,5 @@ public class Task {
     @Column(name = "date_complete")
     private LocalDateTime dateComplete;
 
+    private int takes;
 }

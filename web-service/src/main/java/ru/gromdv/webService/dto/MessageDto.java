@@ -1,15 +1,11 @@
-package ru.gromdv.messageService.dto;
+package ru.gromdv.webService.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import ru.gromdv.messageService.model.MessageStatus;
-
 
 import java.time.LocalDateTime;
 
 @Data
 public class MessageDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     private Long taskId;

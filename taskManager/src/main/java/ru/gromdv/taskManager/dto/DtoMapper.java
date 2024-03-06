@@ -14,6 +14,7 @@ public class DtoMapper {
     public TaskDto toDto(Task task) {
         TaskDto taskDto = new TaskDto();
         taskDto.setId(task.getId());
+        taskDto.setAuthorId(task.getAuthorId());
         taskDto.setName(task.getName());
         taskDto.setDescription(task.getDescription());
         taskDto.setDateCreate(task.getDateCreate());
@@ -34,6 +35,7 @@ public class DtoMapper {
     public Task toEntity(TaskDto taskDto) {
         Task task = new Task();
         task.setId(taskDto.getId());
+        task.setAuthorId(taskDto.getAuthorId());
         task.setName(taskDto.getName());
         task.setDescription(taskDto.getDescription());
         task.setDateCreate(taskDto.getDateCreate());

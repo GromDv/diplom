@@ -1,4 +1,4 @@
-package ru.gromdv.messageService.model;
+package ru.gromdv.webService.dto;
 
 import lombok.Getter;
 
