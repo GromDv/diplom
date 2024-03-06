@@ -3,24 +3,16 @@ package ru.gromdv.webService.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.*;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.gromdv.webService.config.AppConfig;
-import ru.gromdv.webService.dto.ListDto;
 import ru.gromdv.webService.dto.TaskDto;
 import ru.gromdv.webService.dto.TaskGetDto;
 import ru.gromdv.webService.dto.TaskUpdateDto;
 import ru.gromdv.webService.model.Task;
-import ru.gromdv.webService.model.TaskStatus;
-import ru.gromdv.webService.model.User;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
-import java.util.stream.Stream;
 
 @Service
 @Log
@@ -29,6 +21,7 @@ public class TasksApiImpl {
     private RestTemplate template;
     private HttpHeaders headers;
     private final AppConfig appConfig;
+//    private ModelMapper modelMapper;
 
     public List<Task> getAllTasks() {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
@@ -64,8 +57,14 @@ public class TasksApiImpl {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
         String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/task/" + id;
-        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, TaskGetDto.class);
-        return (TaskGetDto) response.getBody();
+        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, Task.class);
+
+        Task task = (Task) response.getBody();
+        TaskGetDto dto = null;
+        if(task != null)
+            dto = new TaskGetDto(task);
+
+        return dto;
     }
 
 
@@ -75,4 +74,8 @@ public class TasksApiImpl {
         String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/update";
         template.put(url, new TaskUpdateDto(task), TaskUpdateDto.class);
     }
+
+//    private TaskGetDto convertToTaskGetDto(Task task) {
+//        return modelMapper.map(task, TaskGetDto.class);
+//    }
 }

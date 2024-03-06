@@ -1,6 +1,5 @@
 package ru.gromdv.webService.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import ru.gromdv.webService.model.Task;
@@ -13,6 +12,8 @@ import java.time.LocalDateTime;
 public class TaskUpdateDto {
     private Long id;
 
+    private Long authorId;
+
     private String name;
 
     private String description;
@@ -24,13 +25,11 @@ public class TaskUpdateDto {
     private LocalDateTime dateComplete;
     public TaskUpdateDto(Task t) {
         id = t.getId();
+        authorId = t.getAuthorId();
         name = t.getName();
         description = t.getDescription();
         status = t.getStatus();
         dateCreate = t.getDateCreate();
-        if(t.getDateComplete() == null)
-            dateComplete = t.getDateCreate();
-        else
-            dateComplete = t.getDateComplete();
+        dateComplete = t.getDateComplete();
     }
 }

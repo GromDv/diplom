@@ -60,6 +60,9 @@ public class RestController {
     }
     @PutMapping("/update")
     public void putTask(@RequestBody Task task) {
+        Task oldTask = servise.getTaskById(task.getId());
+        if(oldTask.getStatus() != TaskStatus.COMPLETED && task.getStatus() == TaskStatus.COMPLETED)
+            task.setDateComplete(LocalDateTime.now());
         servise.saveTask(task);
     }
     @GetMapping("/task/{id}")

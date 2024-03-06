@@ -1,11 +1,7 @@
 package ru.gromdv.webService.dto;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import ru.gromdv.webService.model.User;
-import ru.gromdv.webService.model.UserStatus;
-
-import java.time.LocalDateTime;
 @Data
 public class UserDto {
 

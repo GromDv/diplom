@@ -146,7 +146,7 @@
                                     Создана:
                                 </div>
                                 <div class="tsk-name">
-                                    <p data-th-text="${task.dateCreateGood}"></p>
+                                    <p data-th-text="${task.dateCreateFormatted}"></p>
                                 </div>
                             </div>
                             <div class="tsk-descr">
@@ -154,7 +154,7 @@
                                     Выполнена:
                                 </div>
                                 <div class="tsk-name">
-                                    <p data-th-if="${task.dateComplete} != ${task.dateComplete}" data-th-text="${task.dateCompleteGood}"></p>
+                                    <p data-th-if="${task.dateComplete} != ${task.dateComplete}" data-th-text="${task.dateCompleteFormatted}"></p>
                                     <p data-th-if="${task.dateComplete} == ${task.dateComplete}">-</p>
 <!--                                    <p data-th-if="${task.status == 'COMPLETED'}"-->
 <!--                                       data-th-text="${task.dateCompleteGood}"></p>-->
@@ -187,7 +187,7 @@
                                     <select data-th-field="*{status}">
                                         <option data-th-each="sts : ${T(ru.gromdv.webService.model.TaskStatus).values()}"
                                                 data-th-value="${sts}"
-                                                data-th-text="${sts}"
+                                                data-th-text="${sts.title}"
                                                 data-th-selected="${sts} == ${task.status}"
                                         >
                                         </option>
