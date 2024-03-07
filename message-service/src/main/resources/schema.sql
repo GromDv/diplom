@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS messages;
 CREATE TABLE IF NOT EXISTS messages (
     id SERIAL PRIMARY KEY,
     task_id INT not null,
+    user_id INT not null,
     parent_mess_id INT,
     title VARCHAR(100) not null,
     text VARCHAR(255),

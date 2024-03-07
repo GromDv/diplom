@@ -21,7 +21,7 @@
 <div data-th-switch="${list}" class="container bk-color">
     <h2 data-th-case="null">No records found!</h2>
     <div data-th-case="*" class="col-ms-12 main-list">
-        <form method="get" data-th-action="@{{url}/lk(url=${urlWeb})}" style="display: flex;justify-content: flex-end;">
+        <form method="get" data-th-action="@{/lk}" style="display: flex;justify-content: flex-end;">
             <div style="width: 100%; text-align: center;"><h2>СПИСОК ЗАДАЧ</h2></div>
             <input type="submit" class="menu-button lets-icons--user-box" value="">
         </form>

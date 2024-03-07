@@ -2,9 +2,11 @@ package ru.gromdv.messageService.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.gromdv.messageService.dto.UserMessageDto;
 import ru.gromdv.messageService.repository.MessageRepository;
 import ru.gromdv.messageService.model.Message;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,5 +21,9 @@ public class MessageService {
 
     public List<Message> getListByTaskId(Long taskId) {
         return repository.findAllByTaskId(taskId);
+    }
+
+    public List<?> getListByTaskIdWithUsers(Long taskId) {
+        return repository.findAllByTaskIdWithUserName(taskId);
     }
 }

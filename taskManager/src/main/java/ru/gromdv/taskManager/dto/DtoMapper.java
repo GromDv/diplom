@@ -15,6 +15,7 @@ public class DtoMapper {
         TaskDto taskDto = new TaskDto();
         taskDto.setId(task.getId());
         taskDto.setAuthorId(task.getAuthorId());
+        taskDto.setDeveloperId(task.getDeveloperId());
         taskDto.setName(task.getName());
         taskDto.setDescription(task.getDescription());
         taskDto.setDateCreate(task.getDateCreate());
@@ -36,6 +37,7 @@ public class DtoMapper {
         Task task = new Task();
         task.setId(taskDto.getId());
         task.setAuthorId(taskDto.getAuthorId());
+        task.setDeveloperId(taskDto.getDeveloperId());
         task.setName(taskDto.getName());
         task.setDescription(taskDto.getDescription());
         task.setDateCreate(taskDto.getDateCreate());

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.gromdv.webService.config.AppConfig;
 import ru.gromdv.webService.dto.MessageDto;
+import ru.gromdv.webService.dto.UserMessageDto;
 
 import java.util.List;
 
@@ -23,5 +24,14 @@ public class MessagesApi {
         ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, List.class);
 
         return (List<MessageDto>) response.getBody();
+    }
+
+    public List<UserMessageDto> getAllMessByTaskId(Long id) {
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiMessages() + "/list-u/"+id;
+        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, List.class);
+
+        return (List<UserMessageDto>) response.getBody();
     }
 }

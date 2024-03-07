@@ -48,6 +48,15 @@ public class TasksApiImpl {
         return (List<Task>) response.getBody();
     }
 
+    public List<Task> getTasksByStatusAndDeveloperId(String st, Long devId) {
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks()
+                + "/api/list/status-dev/" + st + "/" + devId;
+        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, List.class);
+        return (List<Task>) response.getBody();
+    }
+
     /**
      * Получить задачу по её id
      * @param id
@@ -56,7 +65,8 @@ public class TasksApiImpl {
     public TaskGetDto getTaskById(Long id) {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/task/" + id;
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort()
+                + appConfig.getUrlApiTasks() + "/api/task/" + id;
         ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, Task.class);
 
         Task task = (Task) response.getBody();
@@ -74,6 +84,17 @@ public class TasksApiImpl {
         String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/update";
         template.put(url, new TaskUpdateDto(task), TaskUpdateDto.class);
     }
+
+    public List<Task> getAllTasksByDeveloperId(Long id) {
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = appConfig.getHost()+ ":" + appConfig.getGatewayPort() + appConfig.getUrlApiTasks() + "/api/list-by-dev/"+id;
+        ResponseEntity<?> response = template.exchange(url, HttpMethod.GET, entity, List.class);
+
+        return (List<Task>) response.getBody();
+    }
+
+
 
 //    private TaskGetDto convertToTaskGetDto(Task task) {
 //        return modelMapper.map(task, TaskGetDto.class);

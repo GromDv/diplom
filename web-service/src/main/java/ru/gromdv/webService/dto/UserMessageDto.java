@@ -5,20 +5,14 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class MessageDto {
+public class UserMessageDto {
     private Long id;
-
     private Long taskId;
-
     private Long userId;
-
     private Long parentMessId;
-
     private String title;
-
     private String text;
-
-    private MessageStatus status;
-
+    private String status;
     private LocalDateTime dateCreate;
+    private String username;
 }

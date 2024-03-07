@@ -14,6 +14,8 @@ public class TaskDto {
 
     private Long authorId;
 
+    private Long developerId;
+
     private String name;
 
     private String description;

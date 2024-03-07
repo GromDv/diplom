@@ -27,21 +27,20 @@ public class WebController {
     private final MessagesApi messApi;
 
     /**
-     * Главная страница списка задач (всех)
+     * Главная страница списка задач разработчика
      * @param model
      * @return
      */
     @GetMapping("/")
-    public String getTasksList(Model model) {
-        List<Task> tasks = tasksApi.getAllTasks();
+    public String getDeveloperTasksList(Model model) {
+        User currUser = getCurrentUser();
+        List<Task> tasks = tasksApi.getAllTasksByDeveloperId(currUser.getId());
 
         String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
-//        log.log(Level.INFO, String.format("urlWebService: %s", urlWeb));
         model.addAttribute("bcolor", "magenta");
         model.addAttribute("list", tasks);
         model.addAttribute("status", "all");
         model.addAttribute("urlweb", urlWeb);
-//        log.log(Level.INFO, String.format("urlweb: %s", urlWeb));
 
         return "tasks.html";
     }
@@ -54,7 +53,8 @@ public class WebController {
      */
     @GetMapping("/tasks/{status}")
     public String getTasksByStatus(Model model, @PathVariable String status) {
-        List<Task> tasks = tasksApi.getTasksByStatus(status);
+        User currUser = getCurrentUser();
+        List<Task> tasks = tasksApi.getTasksByStatusAndDeveloperId(status, currUser.getId());
 
         String bcolor = switch (status) {
             case "new" -> "yellow";
@@ -94,6 +94,7 @@ public class WebController {
     public String createTask(TaskDto task) {
         User currUser = getCurrentUser();
         task.setAuthorId(currUser.getId());
+        task.setDeveloperId(currUser.getId());
         tasksApi.createTask(task);
         return "redirect:/";
     }
@@ -219,9 +220,9 @@ public class WebController {
         return "redirect:/list-dev";
     }
 
-    @GetMapping("/list-mess")
-    public String getAllMessages(Model model) {
-        List<MessageDto> list = messApi.getAllMess();
+    @GetMapping("/list-mess/{id}")
+    public String getAllMessages(Model model, @PathVariable Long id) {
+        List<UserMessageDto> list = messApi.getAllMessByTaskId(id);
         model.addAttribute("list", list);
         return "mess-list.html";
     }

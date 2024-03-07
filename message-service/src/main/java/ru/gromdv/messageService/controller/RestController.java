@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gromdv.messageService.dto.DtoMapper;
 import ru.gromdv.messageService.dto.MessageDto;
+import ru.gromdv.messageService.dto.UserMessageDto;
 import ru.gromdv.messageService.model.Message;
 import ru.gromdv.messageService.service.MessageService;
 
@@ -34,6 +35,15 @@ public class RestController {
     @GetMapping("/list/{id}")
     public ResponseEntity<List<Message>> getListMessagesByTaskId(@PathVariable Long id) {
         List<Message> list = servise.getListByTaskId(id);
+        log.log(Level.INFO, String.format("LIST mess: %s", list));
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/list-u/{id}")
+    public ResponseEntity<List<UserMessageDto>> getListMessagesByTaskIdWithUsers(@PathVariable Long id) {
+        List<?> inList = servise.getListByTaskIdWithUsers(id);
+        List<UserMessageDto> list = inList.stream().map(x -> DtoMapper.toUserMessageDto((Object[])x)).toList();
         log.log(Level.INFO, String.format("LIST mess: %s", list));
 
         return ResponseEntity.ok().body(list);

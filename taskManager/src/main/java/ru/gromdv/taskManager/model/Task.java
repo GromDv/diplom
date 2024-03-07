@@ -17,6 +17,9 @@ public class Task {
     @Column(name = "author_id")
     private Long authorId;
 
+    @Column(name = "developer_id")
+    private Long developerId;
+
     private String name;
 
     private String description;

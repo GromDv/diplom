@@ -9,5 +9,7 @@ public class TaskDto {
 
     private Long authorId;
 
+    private Long developerId;
+
     private String description;
 }

@@ -33,6 +33,14 @@ public class RestController {
         return ResponseEntity.ok().body(tasks);
     }
 
+    @GetMapping("/list-by-dev/{id}")
+    public ResponseEntity<List<TaskDto>> getDeveloperTasksList(@PathVariable Long id) {
+        List<TaskDto> tasks = servise.getDeveloperTasksList(id)
+                .stream().map(dtoMapper::toDto).toList();
+//        log.log(Level.INFO, String.format("Tasks LIST: %s", tasks));
+        return ResponseEntity.ok().body(tasks);
+    }
+
     @GetMapping("/list/status/{st}")
     public ResponseEntity<List<TaskDto>> getTasksList(@PathVariable String st) {
         TaskStatus status = switch (st) {
@@ -46,6 +54,25 @@ public class RestController {
         List<TaskDto> tasks = servise.getTasksList()
                 .stream()
                 .filter(x -> x.getStatus().equals(status))
+                .map(dtoMapper::toDto)
+                .toList();
+        return ResponseEntity.ok().body(tasks);
+    }
+
+    @GetMapping("/list/status-dev/{status}/{devId}")
+    public ResponseEntity<List<TaskDto>> getTasksList(@PathVariable String status, @PathVariable Long devId) {
+        TaskStatus statusU = switch (status) {
+            case "new" -> TaskStatus.NEW_TASK;
+            case "progress" -> TaskStatus.IN_PROGRESS;
+            case "completed" -> TaskStatus.COMPLETED;
+            case "paused" -> TaskStatus.PAUSED;
+            case "urgent" -> TaskStatus.URGENT;
+            default -> TaskStatus.CANCELED;
+        };
+        List<TaskDto> tasks = servise.getTasksList()
+                .stream()
+                .filter(x -> x.getDeveloperId().equals(devId))
+                .filter(x -> x.getStatus().equals(statusU))
                 .map(dtoMapper::toDto)
                 .toList();
         return ResponseEntity.ok().body(tasks);

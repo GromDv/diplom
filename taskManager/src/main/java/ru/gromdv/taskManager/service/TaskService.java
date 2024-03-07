@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.gromdv.taskManager.model.Task;
 import ru.gromdv.taskManager.repository.TaskRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -31,5 +32,9 @@ public class TaskService {
 
     public void saveTask(Task task) {
         repository.save(task);
+    }
+
+    public List<Task> getDeveloperTasksList(Long id) {
+        return repository.findAllByDeveloperId(id);
     }
 }

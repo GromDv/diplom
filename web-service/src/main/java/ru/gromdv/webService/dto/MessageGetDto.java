@@ -11,6 +11,8 @@ public class MessageGetDto {
 
     private Long taskId;
 
+    private Long userId;
+
     private Long parentMessId;
 
     private String title;

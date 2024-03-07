@@ -15,6 +15,9 @@ public class Message {
     @Column(name = "task_id")
     private Long taskId;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(name = "parent_mess_id")
     private Long parentMessId;
 

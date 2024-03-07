@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS tasks;
 CREATE TABLE IF NOT EXISTS tasks (
     id SERIAL PRIMARY KEY,
     author_id INT not null,
+    developer_id INT not null,
     name VARCHAR(100) not null,
     description VARCHAR(255),
     status VARCHAR(50) DEFAULT 'NEW_TASK',
