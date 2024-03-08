@@ -1,4 +1,4 @@
-package ru.gromdv.taskManager.model;
+package ru.gromdv.taskService.model;
 
 
 import lombok.Getter;

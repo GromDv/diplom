@@ -223,12 +223,28 @@ public class WebController {
     @GetMapping("/list-mess/{id}")
     public String getAllMessages(Model model, @PathVariable Long id) {
         List<UserMessageDto> list = messApi.getAllMessByTaskId(id);
+        User currUser = getCurrentUser();
         model.addAttribute("list", list);
+        model.addAttribute("taskId", id);
+        model.addAttribute("userId",currUser.getId());
         return "mess-list.html";
     }
 
+    @GetMapping("/create-mess/{taskId}")
+    public String newMessage(Model model, @PathVariable Long taskId) {
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort() + "/create-mess/"+taskId;
+        model.addAttribute("urlWeb", urlWeb);
+        model.addAttribute("taskId", taskId);
+        return "create-mess.html";
+    }
 
+    @PostMapping("/create-mess")
+    public String createMessage(MessageCreateDto mess) {
+        User currUser = getCurrentUser();
+        mess.setUserId(currUser.getId());
 
+        return "redirect:/list-dev";
+    }
 
 
 

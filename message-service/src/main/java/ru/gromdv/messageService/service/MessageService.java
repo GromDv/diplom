@@ -26,4 +26,8 @@ public class MessageService {
     public List<?> getListByTaskIdWithUsers(Long taskId) {
         return repository.findAllByTaskIdWithUserName(taskId);
     }
+
+    public void createMessage(Message message) {
+        repository.save(message);
+    }
 }

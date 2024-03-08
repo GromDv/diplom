@@ -3,15 +3,14 @@ package ru.gromdv.messageService.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.gromdv.messageService.dto.DtoMapper;
 import ru.gromdv.messageService.dto.MessageDto;
 import ru.gromdv.messageService.dto.UserMessageDto;
 import ru.gromdv.messageService.model.Message;
 import ru.gromdv.messageService.service.MessageService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -47,5 +46,14 @@ public class RestController {
         log.log(Level.INFO, String.format("LIST mess: %s", list));
 
         return ResponseEntity.ok().body(list);
+    }
+    @PostMapping("/create/{taskId}/{userId}")
+    public ResponseEntity<?> createMessage(@RequestBody Message message,
+                                           @PathVariable Long taskId, @PathVariable Long userId) {
+        message.setDateCreate(LocalDateTime.now());
+        message.setTaskId(taskId);
+        message.setUserId(userId);
+        servise.createMessage(message);
+        return ResponseEntity.ok().body(message);
     }
 }

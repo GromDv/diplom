@@ -1,8 +1,8 @@
-package ru.gromdv.taskManager.repository;
+package ru.gromdv.taskService.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.gromdv.taskManager.model.Task;
+import ru.gromdv.taskService.model.Task;
 
 import java.util.List;
 

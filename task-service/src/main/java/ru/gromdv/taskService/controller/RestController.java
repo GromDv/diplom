@@ -1,18 +1,16 @@
-package ru.gromdv.taskManager.controller;
+package ru.gromdv.taskService.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.gromdv.taskManager.dto.DtoMapper;
-import ru.gromdv.taskManager.dto.TaskDto;
-import ru.gromdv.taskManager.model.Task;
-import ru.gromdv.taskManager.model.TaskStatus;
-import ru.gromdv.taskManager.service.TaskService;
+import ru.gromdv.taskService.dto.DtoMapper;
+import ru.gromdv.taskService.dto.TaskDto;
+import ru.gromdv.taskService.model.Task;
+import ru.gromdv.taskService.model.TaskStatus;
+import ru.gromdv.taskService.service.TaskService;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 

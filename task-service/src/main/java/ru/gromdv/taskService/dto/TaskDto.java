@@ -1,8 +1,8 @@
-package ru.gromdv.taskManager.dto;
+package ru.gromdv.taskService.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import ru.gromdv.taskManager.model.TaskStatus;
+import ru.gromdv.taskService.model.TaskStatus;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

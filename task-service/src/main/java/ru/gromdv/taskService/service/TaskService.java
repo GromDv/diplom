@@ -1,14 +1,12 @@
-package ru.gromdv.taskManager.service;
+package ru.gromdv.taskService.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
-import ru.gromdv.taskManager.model.Task;
-import ru.gromdv.taskManager.repository.TaskRepository;
+import ru.gromdv.taskService.model.Task;
+import ru.gromdv.taskService.repository.TaskRepository;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
 
 @Service
 @Log

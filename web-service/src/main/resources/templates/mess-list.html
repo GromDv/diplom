@@ -71,10 +71,10 @@
             <div style="width: 100%;padding: 20px 0;">
                 <div style="width: 100%; text-align: center;"><h2>Переписка по задаче:</h2></div>
                 <div style="display: flex;justify-content: space-between;">
-                    <form method="get" data-th-action="@{/task/{id}(id=${list[0][1]})}" style="margin-right: 20px;">
+                    <form method="get" data-th-action="@{/task/{id}(id=${taskId})}" style="margin-right: 20px;">
                         <input type="submit" class="icon-park-twotone--back" value="">
                     </form>
-                    <form method="get" data-th-action="@{/create-user}" >
+                    <form method="get" data-th-action="@{/create-mess/{task}(task=${taskId})}" >
                         <input type="submit" class="tabler--message-plus" value="">
                     </form>
                 </div>

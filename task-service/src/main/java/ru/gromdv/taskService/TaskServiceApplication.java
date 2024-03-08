@@ -1,13 +1,13 @@
-package ru.gromdv.taskManager;
+package ru.gromdv.taskService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TaskManagerApplication {
+public class TaskServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TaskManagerApplication.class, args);
+		SpringApplication.run(TaskServiceApplication.class, args);
 	}
 
 }

@@ -1,14 +1,13 @@
-package ru.gromdv.taskManager;
+package ru.gromdv.taskService;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.gromdv.taskManager.dto.DtoMapper;
-import ru.gromdv.taskManager.dto.TaskDto;
-import ru.gromdv.taskManager.dto.*;
-import ru.gromdv.taskManager.repository.TaskRepository;
-import ru.gromdv.taskManager.service.TaskService;
+import ru.gromdv.taskService.dto.DtoMapper;
+import ru.gromdv.taskService.dto.TaskDto;
+import ru.gromdv.taskService.repository.TaskRepository;
+import ru.gromdv.taskService.service.TaskService;
 
 import java.util.List;
 

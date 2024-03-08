@@ -1,7 +1,6 @@
-package ru.gromdv.taskManager.model;
+package ru.gromdv.taskService.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.Data;

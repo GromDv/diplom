@@ -9,7 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="cloudApiGateway" />
-        <module name="taskManager" />
+        <module name="task-service" />
         <module name="user-service" />
         <module name="eureka-server" />
         <module name="message-service" />
@@ -27,7 +27,7 @@
       <module name="eureka-server" options="-parameters" />
       <module name="message-service" options="-parameters" />
       <module name="spring-ms-task-manager" options="-parameters" />
-      <module name="taskManager" options="-parameters" />
+      <module name="task-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
       <module name="web-service" options="-parameters" />
     </option>

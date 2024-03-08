@@ -1,7 +1,7 @@
-package ru.gromdv.taskManager.dto;
+package ru.gromdv.taskService.dto;
 
 import org.springframework.stereotype.Component;
-import ru.gromdv.taskManager.model.Task;
+import ru.gromdv.taskService.model.Task;
 
 @Component
 public class DtoMapper {

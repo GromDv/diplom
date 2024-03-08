@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.gromdv</groupId>
-	<artifactId>taskManager</artifactId>
+	<artifactId>task-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>taskManager</name>
 	<description>Task manadger for freelancers</description>
