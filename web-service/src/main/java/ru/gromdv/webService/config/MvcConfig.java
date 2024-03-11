@@ -12,4 +12,5 @@ public class MvcConfig implements WebMvcConfigurer {
  //       registry.addViewController("/lk").setViewName("personal").;
     }
 
+
 }

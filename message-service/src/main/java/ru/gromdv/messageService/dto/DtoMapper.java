@@ -41,12 +41,14 @@ public class DtoMapper {
         m.setUserId(Long.valueOf((Integer)in[2]));
         if(in[3] != null)
             m.setParentMessId(Long.valueOf((Integer)in[3]));
-        m.setTitle( (String) in[4]);
-        m.setText( (String) in[5]);
-        m.setStatus( (String) in[6]);
-        java.sql.Timestamp sqlTimestamp = (Timestamp) in[7];
+        if(in[4] != null)
+            m.setNumMess( (Long) in[4]);
+        m.setTitle( (String) in[5]);
+        m.setText( (String) in[6]);
+        m.setStatus( (String) in[7]);
+        java.sql.Timestamp sqlTimestamp = (Timestamp) in[8];
         m.setDateCreate(sqlTimestamp.toLocalDateTime());
-        m.setUsername( (String) in[8]);
+        m.setUsername( (String) in[9]);
         return m;
     }
 }

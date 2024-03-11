@@ -2,12 +2,11 @@ package ru.gromdv.messageService.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.gromdv.messageService.dto.UserMessageDto;
 import ru.gromdv.messageService.repository.MessageRepository;
 import ru.gromdv.messageService.model.Message;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -29,5 +28,9 @@ public class MessageService {
 
     public void createMessage(Message message) {
         repository.save(message);
+    }
+
+    public Optional<Message> getMessageById(Long messId) {
+        return repository.findById(messId);
     }
 }

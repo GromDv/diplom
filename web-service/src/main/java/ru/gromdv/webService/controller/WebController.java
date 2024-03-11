@@ -14,6 +14,7 @@ import ru.gromdv.webService.dto.*;
 import ru.gromdv.webService.model.*;
 import ru.gromdv.webService.service.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Log
@@ -222,9 +223,10 @@ public class WebController {
 
     @GetMapping("/list-mess/{id}")
     public String getAllMessages(Model model, @PathVariable Long id) {
-        List<UserMessageDto> list = messApi.getAllMessByTaskId(id);
+        ListUMDto list = messApi.getAllMessByTaskId(id);
         User currUser = getCurrentUser();
-        model.addAttribute("list", list);
+        model.addAttribute("list", list.getList());
+        model.addAttribute("mydate", LocalDateTime.now());
         model.addAttribute("taskId", id);
         model.addAttribute("userId",currUser.getId());
         return "mess-list.html";
@@ -234,18 +236,51 @@ public class WebController {
     public String newMessage(Model model, @PathVariable Long taskId) {
         String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort() + "/create-mess/"+taskId;
         model.addAttribute("urlWeb", urlWeb);
+        model.addAttribute("urlPost", "/create-mess");
         model.addAttribute("taskId", taskId);
-        return "create-mess.html";
+        return "mess-create.html";
     }
 
     @PostMapping("/create-mess")
     public String createMessage(MessageCreateDto mess) {
+        String lastUrl = "redirect:/list-mess/"+mess.getTaskId();
         User currUser = getCurrentUser();
         mess.setUserId(currUser.getId());
+        messApi.createMessage(mess);
 
-        return "redirect:/list-dev";
+        return lastUrl;
+    }
+    @GetMapping("/create-mess-to/{messId}")
+    public String newMessageReply(Model model, @PathVariable Long messId) {
+        String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort() + "/create-mess-to/"+messId;
+        UserMessageDto mess = new UserMessageDto();
+        mess = messApi.getMessById(messId);
+        model.addAttribute("urlWeb", urlWeb);
+        model.addAttribute("urlPost", "/create-mess-to/" + messId);
+        model.addAttribute("mess", mess);
+        model.addAttribute("taskId", mess.getTaskId());
+        return "mess-create.html";
+    }
+    @PostMapping("/create-mess-to/{messId}")
+    public String createMessageReply(MessageCreateDto mess, @PathVariable Long messId) {
+        String lastUrl = "redirect:/list-mess/"+mess.getTaskId();
+        User currUser = getCurrentUser();
+        mess.setUserId(currUser.getId());
+        mess.setParentMessId(messId);
+        mess.setTaskId(null);
+        messApi.createMessage(mess);
+
+        return lastUrl;
     }
 
+    @GetMapping("/view-mess/{id}")
+    public String viewMessage(Model model, @PathVariable Long id) {
+        UserMessageDto mess = new UserMessageDto();
+        mess = messApi.getMessById(id);
+        model.addAttribute("taskId", mess.getTaskId());
+        model.addAttribute("mess", mess);
+        return "mess-view.html";
+    }
 
 
 

@@ -13,6 +13,8 @@ public class MessageGetDto {
 
     private Long userId;
 
+    private Long developerId;
+
     private Long parentMessId;
 
     private String title;
@@ -28,6 +30,7 @@ public class MessageGetDto {
     public MessageGetDto(MessageDto m) {
         id = m.getId();
         taskId = m.getTaskId();
+        developerId = m.getDeveloperId();
         parentMessId = m.getParentMessId();
         title = m.getTitle();
         text = m.getText();

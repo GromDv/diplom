@@ -5,7 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-
-public class ListDto {
-    List<TaskDto> tasksList;
+public class ListUMDto {
+    List<UserMessageDto> list;
 }

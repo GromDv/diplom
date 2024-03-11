@@ -2,9 +2,12 @@
 <html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
     <title>Добавление задачи</title>
     <style>
         .bk-color {
@@ -29,6 +32,32 @@
             height: 20px;
             -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
             width: max-content;
+        }
+        .tabler--message-2-down {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 9h8m-8 4h6m-1.5 7.5l-.5.5l-3-3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5.5M19 16v6m3-3l-3 3l-3-3'/%3E%3C/svg%3E");
+            background-color: #ff7800;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+        .iconoir--reply-to-message {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-width='1.5'%3E%3Cpath stroke-linejoin='round' d='m7 8l5 3l5-3'/%3E%3Cpath d='M10 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6.857'/%3E%3Cpath stroke-linejoin='round' d='M13 17.111h6.3c3.6 0 3.6 4.889 0 4.889M13 17.111L16.15 14M13 17.111l3.15 3.111'/%3E%3C/g%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
         }
         .tabler--message-plus {
             display: inline-block;
@@ -69,21 +98,21 @@
         <div class="col-sm-12 col-lg-1 side d-none d-lg-block">&nbsp;</div>
         <div class="col-sm-12 col-lg-10 cent">
             <div style="width: 100%;padding: 20px 0;">
-                <div style="width: 100%; text-align: center;"><h2>Переписка по задаче:</h2></div>
                 <div style="display: flex;justify-content: space-between;">
                     <form method="get" data-th-action="@{/task/{id}(id=${taskId})}" style="margin-right: 20px;">
                         <input type="submit" class="icon-park-twotone--back" value="">
                     </form>
-                    <form method="get" data-th-action="@{/create-mess/{task}(task=${taskId})}" >
+                    <form method="get" data-th-action="@{/create-mess/{task}(task=${taskId})}">
                         <input type="submit" class="tabler--message-plus" value="">
                     </form>
                 </div>
-
+                <div style="width: 100%; text-align: center;background-color:antiquewhite;"><h2>Переписка по
+                    задаче:</h2></div>
                 <div style="width: 100%;display: flex;">
                     <div style="width: 100%;">
 
 
-                        <div data-th-each="mess : ${list}"  >
+                        <div data-th-each="mess : ${list}">
                             <div style="">
                                 <div style="background-color: #fcfcfc;
                                             box-shadow: 2px 2px 5px #fffefe;
@@ -92,17 +121,34 @@
                                             border: 1px solid lightgrey;
                                             display: flex;
                                             justify-content: space-between;
-                                            align-items: center;">
-                                    <a data-th-href="@{/lk-user/{id}(id=${mess.id})}">
-                                        <div style="display: flex;flex-direction: column;">
-                                            <p>От: <span data-th-text="${mess.username}" class="ref"></span></p>
-                                            <p>&nbsp;Создано: <span data-th-text="${mess.dateCreate}" class="ref"></span></p>
+                                            align-items: flex-start;">
+                                    <div style="justify-content: flex-start;">
+                                        <p><span data-th-text="${mess.username}" class="ref"></span>
+                                            ,&nbsp;от
+                                            <span
+                                                data-th-text="${#temporals.format(mess.dateCreate, 'HH:mm dd-MM-yyyy')}"
+                                                class="ref"></span>
+                                            <span data-th-if="${mess.parentMessId} != null">(ответ)</span>
+                                            :
+                                        </p>
+                                        <a data-th-href="@{/view-mess/{id}(id=${mess.id})}">
                                             <p><span data-th-text="${mess.title}" class="ref"></span></p>
                                             <p>&nbsp;<span data-th-text="${mess.text}" class="ref"></span></p>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
 
+                                    </div>
+                                    <div>
+                                        <form method="get" data-th-action="@{/create-mess-to/{id}(id=${mess.id})}">
+                                            <input type="submit" class="iconoir--reply-to-message" value="">
+                                        </form>
+                                        <div data-th-if="${mess.numMess} > 0">
+                                            <a data-th-href="@{#target-{id}(id=${mess.id})}" data-bs-toggle="collapse"><input type="submit" class="tabler--message-2-down" value=""></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse" data-th-id="@{target-{id}(id=${mess.id})}">
+                                    <div class="">Переписка</div>
+                                </div>
                             </div>
                         </div>
 

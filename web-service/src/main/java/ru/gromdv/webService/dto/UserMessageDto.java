@@ -3,6 +3,7 @@ package ru.gromdv.webService.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class UserMessageDto {
@@ -10,6 +11,7 @@ public class UserMessageDto {
     private Long taskId;
     private Long userId;
     private Long parentMessId;
+    private Long numMess;
     private String title;
     private String text;
     private String status;

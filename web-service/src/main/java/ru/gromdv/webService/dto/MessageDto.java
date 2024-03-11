@@ -12,6 +12,8 @@ public class MessageDto {
 
     private Long userId;
 
+    private Long developerId;
+
     private Long parentMessId;
 
     private String title;
