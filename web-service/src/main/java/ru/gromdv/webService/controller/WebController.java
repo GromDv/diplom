@@ -26,6 +26,7 @@ public class WebController {
     private final TasksApiImpl tasksApi;
     private final UserApiImpl userApi;
     private final MessagesApi messApi;
+    private final MessageTransService messageTransService;
 
     /**
      * Главная страница списка задач разработчика
@@ -223,10 +224,12 @@ public class WebController {
 
     @GetMapping("/list-mess/{id}")
     public String getAllMessages(Model model, @PathVariable Long id) {
-        ListUMDto list = messApi.getAllMessByTaskId(id);
+        List<UserMessDTOWithChildMess> list = messageTransService.getMessTree(id);
+        TaskGetDto task = tasksApi.getTaskById(id);
+//        ListUMDto list = messApi.getAllMessByTaskId(id);
         User currUser = getCurrentUser();
-        model.addAttribute("list", list.getList());
-        model.addAttribute("mydate", LocalDateTime.now());
+        model.addAttribute("list", list);
+        model.addAttribute("task",task);
         model.addAttribute("taskId", id);
         model.addAttribute("userId",currUser.getId());
         return "mess-list.html";
@@ -267,7 +270,7 @@ public class WebController {
         User currUser = getCurrentUser();
         mess.setUserId(currUser.getId());
         mess.setParentMessId(messId);
-        mess.setTaskId(null);
+//        mess.setTaskId(null);
         messApi.createMessage(mess);
 
         return lastUrl;

@@ -33,6 +33,22 @@
             -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
             width: max-content;
         }
+        .mess-folder {
+            background-color: #fcfcfc;
+            box-shadow: 2px 2px 5px #fffefe;
+            margin-bottom: 5px;
+            padding: 0 5px;
+            border: 1px solid lightgrey;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .color-developer {
+            background-color: #c5ff9a;
+        }
+        .color-user {
+            background-color: antiquewhite;
+        }
         .tabler--message-2-down {
             display: inline-block;
             width: 40px;
@@ -114,16 +130,10 @@
 
                         <div data-th-each="mess : ${list}">
                             <div style="">
-                                <div style="background-color: #fcfcfc;
-                                            box-shadow: 2px 2px 5px #fffefe;
-                                            margin-bottom: 5px;
-                                            padding: 0 5px;
-                                            border: 1px solid lightgrey;
-                                            display: flex;
-                                            justify-content: space-between;
-                                            align-items: flex-start;">
+                                <div class="mess-folder">
                                     <div style="justify-content: flex-start;">
-                                        <p><span data-th-text="${mess.username}" class="ref"></span>
+                                        <p data-th-class="${task.developerId == mess.userId ? 'color-developer' : 'color-user'}">
+                                            <span data-th-text="${mess.username}" class="ref"></span>
                                             ,&nbsp;от
                                             <span
                                                 data-th-text="${#temporals.format(mess.dateCreate, 'HH:mm dd-MM-yyyy')}"
@@ -147,7 +157,74 @@
                                     </div>
                                 </div>
                                 <div class="collapse" data-th-id="@{target-{id}(id=${mess.id})}">
-                                    <div class="">Переписка</div>
+                                    <div data-th-each="childmess : ${mess.listChildMess}">
+                                        <div>
+                                            <div class="mess-folder" style="margin-left:30px;">
+                                                <div style="justify-content: flex-start;">
+                                                    <p data-th-class="${task.developerId == childmess.userId ? 'color-developer' : 'color-user'}"><span data-th-text="${childmess.username}" class="ref"></span>
+                                                        ,&nbsp;от
+                                                        <span
+                                                                data-th-text="${#temporals.format(childmess.dateCreate, 'HH:mm dd-MM-yyyy')}"
+                                                                class="ref"></span>
+                                                        <span data-th-if="${childmess.parentMessId} != null">(ответ)</span>
+                                                        :
+                                                    </p>
+                                                    <a data-th-href="@{/view-mess/{id}(id=${childmess.id})}">
+                                                        <p><span data-th-text="${childmess.title}" class="ref"></span></p>
+                                                        <p>&nbsp;<span data-th-text="${childmess.text}" class="ref"></span></p>
+                                                    </a>
+
+                                                </div>
+                                                <div>
+                                                    <form method="get" data-th-action="@{/create-mess-to/{id}(id=${childmess.id})}">
+                                                        <input type="submit" class="iconoir--reply-to-message" value="">
+                                                    </form>
+                                                    <div data-th-if="${childmess.numMess} > 0">
+                                                        <a data-th-href="@{#target-{id}(id=${childmess.id})}" data-bs-toggle="collapse">
+                                                            <input type="submit" class="tabler--message-2-down" value=""></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="collapse" data-th-id="@{target-{id}(id=${childmess.id})}">
+                                                <div data-th-each="childmess1 : ${childmess.listChildMess}">
+                                                    <div>
+                                                        <div class="mess-folder" style="margin-left:60px;">
+                                                            <div style="justify-content: flex-start;">
+                                                                <p data-th-class="${task.developerId == childmess1.userId ? 'color-developer' : 'color-user'}">
+                                                                    <span data-th-text="${childmess1.username}" class="ref"></span>
+                                                                    ,&nbsp;от
+                                                                    <span
+                                                                            data-th-text="${#temporals.format(childmess1.dateCreate, 'HH:mm dd-MM-yyyy')}"
+                                                                            class="ref"></span>
+                                                                    <span data-th-if="${childmess1.parentMessId} != null">(ответ)</span>
+                                                                    :
+                                                                </p>
+                                                                <a data-th-href="@{/view-mess/{id}(id=${childmess1.id})}">
+                                                                    <p><span data-th-text="${childmess1.title}" class="ref"></span></p>
+                                                                    <p>&nbsp;<span data-th-text="${childmess1.text}" class="ref"></span></p>
+                                                                </a>
+
+                                                            </div>
+                                                            <div>
+                                                                <form method="get" data-th-action="@{/create-mess-to/{id}(id=${childmess1.id})}">
+                                                                    <input type="submit" class="iconoir--reply-to-message" value="">
+                                                                </form>
+                                                                <div data-th-if="${childmess1.numMess} > 0">
+                                                                    <a data-th-href="@{#target1-{id}(id=${childmess1.id})}" data-bs-toggle="collapse">
+                                                                        <input type="submit" class="tabler--message-2-down" value=""></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="collapse" data-th-id="@{target1-{id}(id=${childmess1.id})}">
+                                                            <div class="">Переписка</div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

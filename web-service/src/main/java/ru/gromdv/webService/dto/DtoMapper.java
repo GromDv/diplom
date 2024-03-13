@@ -1,10 +1,8 @@
 package ru.gromdv.webService.dto;
 
 import org.springframework.stereotype.Component;
-import ru.gromdv.messageService.dto.UserMessageDto;
 
 import java.sql.Timestamp;
-import java.util.LinkedHashMap;
 
 @Component
 public class DtoMapper {
@@ -23,6 +21,24 @@ public class DtoMapper {
         m.setDateCreate(sqlTimestamp.toLocalDateTime());
         m.setUsername( (String) in[8]);
         return m;
+    }
+
+    public static UserMessDTOWithChildMess toUserMessDTOWithChildMess(UserMessageDto in) {
+        UserMessDTOWithChildMess out = new UserMessDTOWithChildMess();
+
+        out.setId(in.getId());
+        out.setTaskId(in.getTaskId());
+        out.setUserId(in.getUserId());
+        out.setParentMessId(in.getParentMessId());
+        out.setNumMess(in.getNumMess());
+        out.setTitle(in.getTitle());
+        out.setText(in.getText());
+        out.setStatus(in.getStatus());
+        out.setDateCreate(in.getDateCreate());
+        out.setUsername(in.getUsername());
+        out.setListChildMess(null);
+
+        return out;
     }
 
 }

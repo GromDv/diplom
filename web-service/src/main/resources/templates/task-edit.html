@@ -139,6 +139,7 @@
                     <div style="background-color: #fffefc;width: 100%;">
                         <form id="edtsk" method="POST" data-th-object="${task}" data-th-action="@{/task-update}" >
                             <input type="text" data-th-value="${task.id}" name="id" hidden>
+                            <input type="text" data-th-value="${task.developerId}" name="developerId" hidden>
                             <input type="text" data-th-value="${task.dateCreate}" name="dateCreate" hidden>
                             <input type="text" data-th-value="${task.dateComplete}" name="dateComplete" hidden>
                             <div class="tsk-descr">

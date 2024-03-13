@@ -17,6 +17,8 @@ public class TaskGetDto {
 
     private Long authorId;
 
+    private Long developerId;
+
     private String name;
 
     private String description;
@@ -36,6 +38,7 @@ public class TaskGetDto {
     public TaskGetDto(Task t) {
         id = t.getId();
         authorId = t.getAuthorId();
+        developerId = t.getDeveloperId();
         name = t.getName();
         description = t.getDescription();
         status = t.getStatus();
@@ -51,7 +54,10 @@ public class TaskGetDto {
     }
     public void setDateCompleteFormatted() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
-        dateCompleteFormatted =  dateComplete.format(formatter);
+        if(dateComplete != null)
+            dateCompleteFormatted =  dateComplete.format(formatter);
+        else
+            dateCompleteFormatted = "-";
     }
 
 }

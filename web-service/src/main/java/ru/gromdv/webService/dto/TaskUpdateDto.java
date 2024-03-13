@@ -14,6 +14,8 @@ public class TaskUpdateDto {
 
     private Long authorId;
 
+    private Long developerId;
+
     private String name;
 
     private String description;
@@ -26,6 +28,7 @@ public class TaskUpdateDto {
     public TaskUpdateDto(Task t) {
         id = t.getId();
         authorId = t.getAuthorId();
+        developerId = t.getDeveloperId();
         name = t.getName();
         description = t.getDescription();
         status = t.getStatus();
