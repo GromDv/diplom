@@ -27,6 +27,7 @@ public class WebController {
     private final UserApiImpl userApi;
     private final MessagesApi messApi;
     private final MessageTransService messageTransService;
+    private final FileStorageApi fileStorageApi;
 
     /**
      * Главная страница списка задач разработчика
@@ -144,10 +145,13 @@ public class WebController {
      */
     @GetMapping("/lk")
     public String showUserInfo(Model model) {
-        model.addAttribute("user", getCurrentUser());
+        User currUser = getCurrentUser();
+        model.addAttribute("cUser", currUser);
+        model.addAttribute("user", currUser);
         String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
         String refBack = "/";
-        model.addAttribute("showBtns", true);
+        model.addAttribute("showBtns", currUser.getStatus() == UserStatus.ADMIN
+                || currUser.getStatus() == UserStatus.DEV);
         model.addAttribute("refBack", refBack);
         model.addAttribute("urlWeb", urlWeb);
         return "personal.html";
@@ -161,6 +165,8 @@ public class WebController {
      */
     @GetMapping("/lk-user/{id}")
     public String getUserInfo(Model model, @PathVariable Long id) {
+        User currUser = getCurrentUser();
+        model.addAttribute("cUser", currUser);
         model.addAttribute("user", userApi.findUserById(id));
         String urlWeb = appConfig.getHost()+ ":" + appConfig.getServerPort();
         String refBack = "/list-dev";
@@ -286,6 +292,19 @@ public class WebController {
     }
 
 
+    @GetMapping("/list-adds/{id}")
+    public String getAdditions(Model model, @PathVariable Long id) {
+//        List<UserMessDTOWithChildMess> list = messageTransService.getMessTree(id);
+        TaskGetDto task = tasksApi.getTaskById(id);
+        List<FileInStorage> list = fileStorageApi.getListFilesByTask(id);
+////        ListUMDto list = messApi.getAllMessByTaskId(id);
+        User currUser = getCurrentUser();
+        model.addAttribute("list", list);
+        model.addAttribute("task",task);
+        model.addAttribute("taskId", id);
+        model.addAttribute("userId",currUser.getId());
+        return "adds-list.html";
+    }
 
 
 

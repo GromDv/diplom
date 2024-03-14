@@ -13,14 +13,14 @@ public class CloudApiGatewayApplication {
 		SpringApplication.run(CloudApiGatewayApplication.class, args);
 	}
 
-	@Bean
-	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-		return builder.routes()
-				.route("taskmanager-ms",r->r.path("/tasks/**")
-						.uri("http://localhost:8087/"))
-				.route("user-service-ms",r->r.path("/users/**")
-						.uri("http://localhost:8085/"))
-				.route("message-service-ms",r->r.path("/messages/**")
-						.uri("http://localhost:8088/")).build();}
+//	@Bean
+//	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+//		return builder.routes()
+//				.route("taskmanager-ms",r->r.path("/tasks/**")
+//						.uri("http://localhost:8087/"))
+//				.route("user-service-ms",r->r.path("/users/**")
+//						.uri("http://localhost:8085/"))
+//				.route("message-service-ms",r->r.path("/messages/**")
+//						.uri("http://localhost:8088/")).build();}
 
 }

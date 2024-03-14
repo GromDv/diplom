@@ -125,7 +125,7 @@
                         <form method="get" data-th-action="@{/list-mess/{id}(id=${task.id})}">
                             <input type="submit" class="task-menu task-mess" value="переписка">
                         </form>
-                        <form method="get" action="">
+                        <form method="get" data-th-action="@{/list-adds/{id}(id=${task.id})}">
                             <input type="submit" class="task-menu task-adds" value="приложения">
                         </form>
                         <form method="get" action="">

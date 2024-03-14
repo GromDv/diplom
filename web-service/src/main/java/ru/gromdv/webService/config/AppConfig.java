@@ -14,4 +14,6 @@ public class AppConfig {
     private String urlApiTasks;
     private String urlApiMessages;
     private String urlApiUsers;
+    private String urlApiAdds;
+    private String pathFileStorage;
 }

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <title>Добавление задачи</title>
+    <style>
+        .bk-color {
+            background-color: #bcf3a1;
+            padding: 0 5px 10px 5px;
+        }
+        .side {
+            min-height: 100vh;
+        }
+        .cent {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffdf;
+        }
+        .title {
+            background-color: #e7e7e7;
+            color: #2d2d2d;
+            padding: 0 30px;
+            margin-bottom: 0px;
+            line-height: 20px;
+            height: 20px;
+            -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
+            width: max-content;
+        }
+        .mess-folder {
+            background-color: #fcfcfc;
+            box-shadow: 2px 2px 5px #fffefe;
+            margin-bottom: 5px;
+            padding: 0 5px;
+            border: 1px solid lightgrey;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .color-developer {
+            background-color: #c5ff9a;
+        }
+        .color-user {
+            background-color: antiquewhite;
+        }
+        .tabler--message-2-down {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 9h8m-8 4h6m-1.5 7.5l-.5.5l-3-3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5.5M19 16v6m3-3l-3 3l-3-3'/%3E%3C/svg%3E");
+            background-color: #ff7800;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+        .iconoir--reply-to-message {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-width='1.5'%3E%3Cpath stroke-linejoin='round' d='m7 8l5 3l5-3'/%3E%3Cpath d='M10 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6.857'/%3E%3Cpath stroke-linejoin='round' d='M13 17.111h6.3c3.6 0 3.6 4.889 0 4.889M13 17.111L16.15 14M13 17.111l3.15 3.111'/%3E%3C/g%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+        .ri--image-add-fill {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M21 15v3h3v2h-3v3h-2v-3h-3v-2h3v-3zm.008-12c.548 0 .992.445.992.993v9.349A5.99 5.99 0 0 0 20 13V5H4l.001 14l9.292-9.293a.999.999 0 0 1 1.32-.084l.094.085l3.545 3.55a6.003 6.003 0 0 0-3.91 7.743L2.992 21A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3zM8 7a2 2 0 1 1 0 4a2 2 0 0 1 0-4'/%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+        .icon-park-twotone--back {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3Cmask id='ipTBack0'%3E%3Cpath fill='%23555' fill-rule='evenodd' stroke='%23fff' stroke-linejoin='round' stroke-width='4' d='M44 40.836c-4.893-5.973-9.238-9.362-13.036-10.168c-3.797-.805-7.412-.927-10.846-.365V41L4 23.545L20.118 7v10.167c6.349.05 11.746 2.328 16.192 6.833c4.445 4.505 7.009 10.117 7.69 16.836Z' clip-rule='evenodd'/%3E%3C/mask%3E%3C/defs%3E%3Cpath fill='%23000' d='M0 0h48v48H0z' mask='url(%23ipTBack0)'/%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+        @media (max-width: 991px) {
+            .cent {
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row bk-color">
+        <div class="col-sm-12 col-lg-1 side d-none d-lg-block">&nbsp;</div>
+        <div class="col-sm-12 col-lg-10 cent">
+            <div style="width: 100%;padding: 20px 0;">
+                <div style="display: flex;justify-content: space-between;">
+                    <form method="get" data-th-action="@{/task/{id}(id=${taskId})}" style="margin-right: 20px;">
+                        <input type="submit" class="icon-park-twotone--back" value="">
+                    </form>
+                    <form method="get" data-th-action="@{/upload/{task}(task=${taskId})}">
+                        <input type="submit" class="ri--image-add-fill" value="">
+                    </form>
+                </div>
+                <div style="width: 100%; text-align: center;background-color:antiquewhite;"><h2>Приложения к
+                    задаче:</h2></div>
+                <div style="width: 100%;display: flex;">
+                    <div style="width: 100%;">
+
+
+                        <div data-th-each="adFile : ${list}">
+                            <div class="mess-folder">
+                                <div style="justify-content: flex-start;">
+                                    <p>
+                                        <span data-th-text="${adFile.fileName}" class="ref"></span>
+                                    </p>
+                                </div>
+                                <!--                                    <div>-->
+                                <!--                                        <form method="get" data-th-action="@{/create-mess-to/{id}(id=${adFile.id})}">-->
+                                <!--                                            <input type="submit" class="iconoir&#45;&#45;reply-to-message" value="">-->
+                                <!--                                        </form>-->
+                                <!--                                        <div data-th-if="${adFile.numMess} > 0">-->
+                                <!--                                            <a data-th-href="@{#target-{id}(id=${adFile.id})}" data-bs-toggle="collapse"><input type="submit" class="tabler&#45;&#45;message-2-down" value=""></a>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12 col-lg-1 side d-none d-lg-block">&nbsp;</div>
+    </div>
+</div>
+</body>
+</html>
